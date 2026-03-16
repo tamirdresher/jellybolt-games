@@ -1,0 +1,41 @@
+{
+  "version": 1,
+  "tasks": [
+    {
+      "id": "weekly-market-scan",
+      "name": "Weekly Gaming Market Intelligence",
+      "description": "Scan gaming charts, reviews, news, Reddit, and competitor games. Produce a market intelligence report with actionable insights.",
+      "enabled": true,
+      "trigger": {
+        "type": "cron",
+        "expression": "0 7 * * 1",
+        "timezone": "Asia/Jerusalem",
+        "description": "Every Monday at 7 AM Israel time"
+      },
+      "task": {
+        "type": "copilot",
+        "instruction": "Run weekly gaming market intelligence scan: 1) Check top free games on Play Store and App Store using web search. 2) Search Reddit r/androidgaming, r/iosgaming, r/indiegaming for trending topics. 3) Check gaming news for indie game trends. 4) Analyze top 5 competitor games in puzzle/casual category. 5) Produce a Market Intelligence Report as a GitHub issue with label 'market-intel'. Include: trending games, player complaints, feature requests, monetization trends, and 3 actionable recommendations for our games."
+      },
+      "providers": ["local-polling", "copilot-agent"],
+      "tags": ["market-intelligence", "gaming", "research"]
+    },
+    {
+      "id": "daily-review-scan",
+      "name": "Daily Player Review Scanner",
+      "description": "Check our published games for new reviews and player feedback",
+      "enabled": true,
+      "trigger": {
+        "type": "cron",
+        "expression": "0 8 * * 1-5",
+        "timezone": "Asia/Jerusalem",
+        "description": "Every weekday at 8 AM"
+      },
+      "task": {
+        "type": "copilot",
+        "instruction": "Check for new player reviews on our published games. Search Play Store for JellyBolt games. Look for negative reviews (1-2 stars) to identify bugs or UX issues. Look for positive reviews to identify what players love. Create a GitHub issue only if there are actionable findings — label 'player-feedback'."
+      },
+      "providers": ["local-polling"],
+      "tags": ["reviews", "player-feedback"]
+    }
+  ]
+}
