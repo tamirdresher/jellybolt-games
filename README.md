@@ -13,6 +13,7 @@ JellyBolt Games is an indie mobile game studio focused on creating **free-to-pla
 | **BrainRot Quiz Battle** | Multiplayer Trivia | 🟡 In Development | [brainrot-quiz-battle](https://github.com/tamirdresher/brainrot-quiz-battle) |
 | **Bounce Blitz** | One-Tap Arcade | 🔵 Design Phase | [bounce-blitz](https://github.com/tamirdresher/bounce-blitz) |
 | **Idle Critter Farm** | Idle / Merge | 🔵 Design Phase | [idle-critter-farm](https://github.com/tamirdresher/idle-critter-farm) |
+| **Code Conquest** | Strategy Board Game | 🟡 In Development | [code-conquest](https://github.com/tamirdresher/code-conquest) |
 
 ---
 
@@ -104,6 +105,7 @@ jellybolt-games/          # Studio HQ (this repo)
 brainrot-quiz-battle/     # Game 1 — Multiplayer trivia
 bounce-blitz/             # Game 2 — One-tap arcade
 idle-critter-farm/        # Game 3 — Idle merge game
+code-conquest/            # Game 4 — Strategy board game
 ```
 
 ---
