@@ -106,35 +106,40 @@ function el(tag,attrs,html){
 
 /* ══════════════════════════════════════
    1. AD SLOTS — AdSense Placeholders
+   (skip if inline ads already present)
    ══════════════════════════════════════ */
 
-/* Top banner ad */
-const adTop=el('div',{class:'jb-ad-banner jb-ad-top'},`
-  <ins class="adsbygoogle" style="display:inline-block;width:728px;height:90px"
-       data-ad-client="ca-pub-XXXXXXXXXX" data-ad-slot="TOP_BANNER"></ins>
-  <span style="position:absolute">728×90 Ad</span>
-`);
-document.body.prepend(adTop);
+if(!document.getElementById('ad-top')){
+  const adTop=el('div',{class:'jb-ad-banner jb-ad-top',id:'jb-ad-top'},`
+    <ins class="adsbygoogle" style="display:inline-block;width:728px;height:90px"
+         data-ad-client="ca-pub-XXXXXXXXXX" data-ad-slot="TOP_BANNER"></ins>
+    <span style="position:absolute">728×90 Ad</span>
+  `);
+  document.body.prepend(adTop);
+}
 
-/* Bottom banner ad */
-const adBottom=el('div',{class:'jb-ad-banner jb-ad-bottom'},`
-  <ins class="adsbygoogle" style="display:inline-block;width:728px;height:90px"
-       data-ad-client="ca-pub-XXXXXXXXXX" data-ad-slot="BOTTOM_BANNER"></ins>
-  <span style="position:absolute">728×90 Ad</span>
-`);
-document.body.appendChild(adBottom);
+if(!document.getElementById('ad-bottom')){
+  const adBottom=el('div',{class:'jb-ad-banner jb-ad-bottom',id:'jb-ad-bottom'},`
+    <ins class="adsbygoogle" style="display:inline-block;width:728px;height:90px"
+         data-ad-client="ca-pub-XXXXXXXXXX" data-ad-slot="BOTTOM_BANNER"></ins>
+    <span style="position:absolute">728×90 Ad</span>
+  `);
+  document.body.appendChild(adBottom);
+}
 
-/* Interstitial ad */
-const adInterstitial=el('div',{class:'jb-ad-interstitial',id:'jb-interstitial'},`
-  <div class="ad-container">
-    <ins class="adsbygoogle" style="display:inline-block;width:300px;height:250px"
-         data-ad-client="ca-pub-XXXXXXXXXX" data-ad-slot="INTERSTITIAL"></ins>
-    <span style="position:absolute">300×250 Ad</span>
-  </div>
-  <div class="ad-timer" id="jb-interstitial-timer"></div>
-  <button class="ad-skip" id="jb-interstitial-skip">Continue Playing ▶</button>
-`);
-document.body.appendChild(adInterstitial);
+/* Interstitial ad — skip if already present */
+if(!document.getElementById('jb-interstitial')){
+  const adInterstitial=el('div',{class:'jb-ad-interstitial',id:'jb-interstitial'},`
+    <div class="ad-container">
+      <ins class="adsbygoogle" style="display:inline-block;width:300px;height:250px"
+           data-ad-client="ca-pub-XXXXXXXXXX" data-ad-slot="INTERSTITIAL"></ins>
+      <span style="position:absolute">300×250 Ad</span>
+    </div>
+    <div class="ad-timer" id="jb-interstitial-timer"></div>
+    <button class="ad-skip" id="jb-interstitial-skip">Continue Playing ▶</button>
+  `);
+  document.body.appendChild(adInterstitial);
+}
 
 /* Loading screen ad */
 const adLoading=el('div',{class:'jb-ad-loading',id:'jb-loading-ad'},`
@@ -150,27 +155,32 @@ document.body.appendChild(adLoading);
 
 /* Interstitial logic */
 let _interstitialCount = 0;
-document.getElementById('jb-interstitial-skip').addEventListener('click',function(){
-  adInterstitial.classList.remove('active');
+const skipEl=document.getElementById('jb-interstitial-skip');
+if(skipEl) skipEl.addEventListener('click',function(){
+  document.getElementById('jb-interstitial').classList.remove('active');
+  document.getElementById('jb-interstitial').style.display='none';
 });
 
 window.jbShowInterstitial = function(){
   _interstitialCount++;
   if(_interstitialCount % 2 === 0){
-    adInterstitial.classList.add('active');
+    const el=document.getElementById('jb-interstitial');
+    if(!el)return;
+    el.classList.add('active');
+    el.style.display='flex';
     const skipBtn=document.getElementById('jb-interstitial-skip');
     const timerEl=document.getElementById('jb-interstitial-timer');
-    skipBtn.classList.remove('visible');
+    if(skipBtn)skipBtn.classList.remove('visible');
     let countdown=3;
-    timerEl.textContent='Continue in '+countdown+'s...';
+    if(timerEl)timerEl.textContent='Continue in '+countdown+'s...';
     const iv=setInterval(()=>{
       countdown--;
       if(countdown<=0){
         clearInterval(iv);
-        timerEl.textContent='';
-        skipBtn.classList.add('visible');
+        if(timerEl)timerEl.textContent='';
+        if(skipBtn)skipBtn.classList.add('visible');
       } else {
-        timerEl.textContent='Continue in '+countdown+'s...';
+        if(timerEl)timerEl.textContent='Continue in '+countdown+'s...';
       }
     },1000);
   }
@@ -192,16 +202,18 @@ window.jbShowLoadingAd = function(){
 };
 
 /* ══════════════════════════════════════
-   2. SUPPORT / TIP BUTTON
+   2. SUPPORT / TIP BUTTON (skip if monetization bar present)
    ══════════════════════════════════════ */
-const supportBtn=el('a',{
-  class:'jb-support-btn',
-  href:'https://buymeacoffee.com/jellyboltgames',
-  target:'_blank',
-  rel:'noopener noreferrer',
-  title:'Support JellyBolt Games'
-},'☕ Support Us');
-document.body.appendChild(supportBtn);
+if(!document.querySelector('.jb-monetization-bar')){
+  const supportBtn=el('a',{
+    class:'jb-support-btn',
+    href:'https://buymeacoffee.com/jellyboltgames',
+    target:'_blank',
+    rel:'noopener noreferrer',
+    title:'Support JellyBolt Games'
+  },'☕ Support Us');
+  document.body.appendChild(supportBtn);
+}
 
 /* ══════════════════════════════════════
    3. CROSS-PROMOTION — More Games
@@ -262,8 +274,12 @@ window.jbShareScore = function(score){
 // adsScript.crossOrigin='anonymous';
 // document.head.appendChild(adsScript);
 
-/* ── Adjust body padding for ad banners ── */
-document.body.style.paddingTop = (document.body.style.paddingTop ? parseInt(document.body.style.paddingTop) : 0) + 90 + 'px';
-document.body.style.paddingBottom = (document.body.style.paddingBottom ? parseInt(document.body.style.paddingBottom) : 0) + 90 + 'px';
+/* ── Adjust body padding only if we created the fixed ad banners ── */
+if(document.getElementById('jb-ad-top')){
+  document.body.style.paddingTop = (parseInt(document.body.style.paddingTop)||0) + 90 + 'px';
+}
+if(document.getElementById('jb-ad-bottom')){
+  document.body.style.paddingBottom = (parseInt(document.body.style.paddingBottom)||0) + 90 + 'px';
+}
 
 })();

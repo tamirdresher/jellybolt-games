@@ -3,138 +3,227 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>JellyBolt Games — Free HTML5 Games</title>
-  <meta name="description" content="Play 16 free HTML5 browser games by JellyBolt Games. No downloads, no installs — just instant fun!">
-  <meta name="keywords" content="HTML5 games, free browser games, JellyBolt Games, arcade, puzzle, strategy">
-  <meta property="og:title" content="JellyBolt Games — Free HTML5 Games">
-  <meta property="og:description" content="Play 16 free HTML5 browser games. No downloads needed!">
+  <title>JellyBolt Games — Free HTML5 Games Collection</title>
+  <meta name="description" content="Play 16 free HTML5 browser games by JellyBolt Games. Space shooters, puzzles, card battles, typing challenges and more — all in your browser!">
+  <meta name="keywords" content="HTML5 games, free browser games, JellyBolt Games, arcade games, puzzle games, card games, indie games, no download games">
+  <meta name="author" content="JellyBolt Games">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://jellyboltgames.com">
+  <meta property="og:title" content="JellyBolt Games — 16 Free HTML5 Games">
+  <meta property="og:description" content="Play 16 free browser games. Space shooters, puzzles, card battles & more. No downloads needed!">
   <meta property="og:type" content="website">
-  <meta property="og:url" content="https://jellyboltgames.itch.io">
+  <meta property="og:url" content="https://jellyboltgames.com">
+  <meta property="og:image" content="https://jellyboltgames.com/og-image.png">
+  <meta property="og:site_name" content="JellyBolt Games">
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="JellyBolt Games">
-  <meta name="twitter:description" content="16 free browser games — play instantly!">
+  <meta name="twitter:site" content="@JellyBoltGames">
+  <meta name="twitter:title" content="JellyBolt Games — 16 Free HTML5 Games">
+  <meta name="twitter:description" content="16 free browser games — play instantly! No downloads needed.">
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⚡</text></svg>">
   <style>
     *{margin:0;padding:0;box-sizing:border-box}
-    body{background:#0a0a1a;color:#e0e0e0;font-family:'Segoe UI',system-ui,sans-serif;min-height:100vh}
-    .ad-banner{text-align:center;padding:8px 0;background:#0d0d22}
+    :root{--bg:#050510;--surface:#0d0d24;--surface2:#14142e;--border:#1e1e44;--accent:#00ff88;--accent2:#58a6ff;--yellow:#ffcc00;--red:#ff6b6b;--text:#e8e8f0;--text2:#8888aa;--glow:rgba(0,255,136,.15)}
+    body{background:var(--bg);color:var(--text);font-family:'Segoe UI',system-ui,-apple-system,sans-serif;min-height:100vh;overflow-x:hidden}
+    a{color:inherit;text-decoration:none}
+
+    /* Ad Slots */
+    .ad-banner{text-align:center;padding:8px 0;background:var(--surface)}
+    .ad-banner .ad-inner{width:728px;max-width:100%;height:90px;margin:0 auto;display:flex;align-items:center;justify-content:center;background:linear-gradient(135deg,var(--surface),var(--surface2));border:1px dashed #2a2a4a;color:#444;font-size:11px;letter-spacing:1px;border-radius:6px;position:relative}
     .ad-banner ins{display:inline-block;width:728px;max-width:100%;height:90px}
-    header{text-align:center;padding:40px 20px 20px;background:linear-gradient(180deg,#12122a 0%,#0a0a1a 100%)}
-    header h1{font-size:2.8rem;background:linear-gradient(135deg,#00ff88,#00ccff,#ff44cc);-webkit-background-clip:text;-webkit-text-fill-color:transparent;margin-bottom:8px}
-    header p{color:#8888aa;font-size:1.1rem}
-    .games-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:20px;max-width:1200px;margin:30px auto;padding:0 20px}
-    .game-card{background:#14142a;border:1px solid #222244;border-radius:14px;overflow:hidden;transition:transform .2s,box-shadow .2s;cursor:pointer;text-decoration:none;color:inherit}
-    .game-card:hover{transform:translateY(-4px);box-shadow:0 8px 30px rgba(0,255,136,.15);border-color:#00ff88}
-    .game-thumb{height:160px;display:flex;align-items:center;justify-content:center;font-size:3.5rem;background:linear-gradient(135deg,#1a1a3a,#0d0d22)}
-    .game-info{padding:16px}
-    .game-info h3{font-size:1.15rem;margin-bottom:6px;color:#fff}
-    .game-info p{font-size:.85rem;color:#7777aa;line-height:1.4}
-    .play-btn{display:inline-block;margin-top:10px;padding:8px 20px;background:linear-gradient(135deg,#00ff88,#00ccff);color:#000;font-weight:700;border-radius:8px;font-size:.85rem;text-decoration:none}
-    .support-section{text-align:center;padding:50px 20px;background:#0d0d22;margin-top:40px}
-    .support-section h2{font-size:1.8rem;margin-bottom:12px;color:#00ccff}
-    .support-section p{color:#8888aa;margin-bottom:20px}
-    .support-btn{display:inline-block;padding:12px 28px;background:linear-gradient(135deg,#ffdd00,#ff8800);color:#000;font-weight:700;border-radius:10px;font-size:1rem;text-decoration:none;margin:6px}
-    .more-btn{display:inline-block;padding:12px 28px;background:linear-gradient(135deg,#00ff88,#00ccff);color:#000;font-weight:700;border-radius:10px;font-size:1rem;text-decoration:none;margin:6px}
-    footer{text-align:center;padding:30px 20px;color:#555;font-size:.85rem}
-    footer a{color:#00ccff;text-decoration:none}
+    .ad-sidebar{width:300px;height:250px;background:linear-gradient(135deg,var(--surface),var(--surface2));border:1px dashed #2a2a4a;border-radius:8px;display:flex;align-items:center;justify-content:center;color:#444;font-size:11px;letter-spacing:1px;flex-shrink:0;position:relative}
+    .ad-sidebar ins{display:block;width:300px;height:250px}
+
+    /* Header */
+    .header{text-align:center;padding:50px 20px 30px;position:relative;background:linear-gradient(180deg,#0a0a24 0%,var(--bg) 100%)}
+    .header::before{content:'';position:absolute;top:0;left:50%;transform:translateX(-50%);width:600px;height:600px;background:radial-gradient(circle,rgba(0,255,136,.06) 0%,transparent 70%);pointer-events:none}
+    .logo{font-size:3.2rem;font-weight:900;margin-bottom:8px;position:relative}
+    .logo .bolt{color:var(--yellow);text-shadow:0 0 30px rgba(255,204,0,.4)}
+    .logo .jelly{background:linear-gradient(135deg,var(--accent),var(--accent2));-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+    .tagline{font-size:1.15rem;color:var(--text2);margin-bottom:6px}
+    .sub-tag{font-size:.9rem;color:#555;margin-bottom:24px}
+    .header-stats{display:flex;gap:30px;justify-content:center;flex-wrap:wrap}
+    .stat{text-align:center}
+    .stat-num{font-size:2rem;font-weight:800;color:var(--accent)}
+    .stat-label{font-size:.72rem;color:var(--text2);text-transform:uppercase;letter-spacing:1px}
+
+    /* Nav */
+    .nav{display:flex;justify-content:center;gap:14px;padding:14px 20px;flex-wrap:wrap;background:rgba(13,13,36,.5);border-bottom:1px solid var(--border)}
+    .nav a{padding:7px 16px;border-radius:20px;font-weight:600;font-size:.85rem;transition:all .2s;border:1px solid var(--border)}
+    .nav a:hover{border-color:var(--accent);color:var(--accent);background:rgba(0,255,136,.05)}
+    .random-btn{background:linear-gradient(135deg,var(--accent),#00cc6a)!important;color:#000!important;border-color:transparent!important;cursor:pointer}
+    .random-btn:hover{transform:scale(1.05)!important}
+
+    /* Main Layout */
+    .main-layout{display:flex;gap:24px;max-width:1200px;margin:0 auto;padding:0 20px}
+    .content{flex:1;min-width:0}
+    .sidebar{width:320px;flex-shrink:0;display:flex;flex-direction:column;gap:20px;align-items:center;padding-top:10px}
+
+    /* Section Titles */
+    .section-title{font-size:1.7rem;font-weight:800;margin:28px 0 18px;text-align:center}
+    .section-title span{background:linear-gradient(135deg,var(--accent),var(--accent2));-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+
+    /* Games Grid */
+    .games-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:16px;padding:0 0 30px}
+    .game-card{background:var(--surface);border:1px solid var(--border);border-radius:14px;overflow:hidden;transition:all .25s;cursor:pointer;position:relative}
+    .game-card:hover{transform:translateY(-5px);border-color:var(--accent);box-shadow:0 10px 35px var(--glow)}
+    .game-thumb{width:100%;height:140px;display:flex;align-items:center;justify-content:center;font-size:3.5rem;background:linear-gradient(135deg,#1a1a3a,#0d0d22);border-bottom:1px solid var(--border);position:relative;overflow:hidden}
+    .game-thumb::after{content:'';position:absolute;inset:0;background:linear-gradient(180deg,transparent 50%,rgba(0,0,0,.4));pointer-events:none}
+    .game-info{padding:14px}
+    .game-info h3{font-size:1.05rem;margin-bottom:4px;color:#fff}
+    .game-genre{font-size:.72rem;color:var(--text2);text-transform:uppercase;letter-spacing:1px;margin-bottom:10px}
+    .game-actions{display:flex;gap:8px}
+    .play-btn{flex:1;padding:8px;background:linear-gradient(135deg,var(--accent),#00cc6a);color:#000;border:none;border-radius:8px;font-weight:700;font-size:.82rem;cursor:pointer;transition:all .2s;text-align:center;display:inline-block;text-decoration:none}
+    .play-btn:hover{transform:scale(1.03);box-shadow:0 4px 15px rgba(0,255,136,.3)}
+    .itch-btn{padding:8px 12px;background:var(--surface2);color:var(--text2);border:1px solid var(--border);border-radius:8px;font-size:.72rem;cursor:pointer;transition:all .2s;font-weight:600;display:inline-block;text-decoration:none}
+    .itch-btn:hover{border-color:var(--red);color:var(--red)}
+    .game-badge{position:absolute;top:8px;right:8px;padding:3px 8px;background:rgba(0,0,0,.7);border-radius:6px;font-size:.62rem;font-weight:700;color:var(--yellow);border:1px solid rgba(255,204,0,.3);z-index:2}
+
+    /* Support Section */
+    .support-section{background:linear-gradient(135deg,#1a0e00,#201500);border:1px solid #3a2a00;border-radius:16px;padding:36px;text-align:center;margin:30px 0}
+    .support-section h2{color:var(--yellow);font-size:1.5rem;margin-bottom:10px}
+    .support-section p{color:var(--text2);margin-bottom:20px;max-width:480px;margin-left:auto;margin-right:auto}
+    .coffee-btn{display:inline-flex;align-items:center;gap:8px;padding:12px 28px;background:linear-gradient(135deg,#ffdd00,#ff9900);color:#000;border-radius:24px;font-weight:800;font-size:1rem;transition:all .2s;box-shadow:0 4px 20px rgba(255,153,0,.3);text-decoration:none}
+    .coffee-btn:hover{transform:scale(1.06);box-shadow:0 8px 30px rgba(255,153,0,.5)}
+    .itch-link{display:inline-flex;align-items:center;gap:8px;padding:12px 28px;background:linear-gradient(135deg,var(--accent),var(--accent2));color:#000;border-radius:24px;font-weight:800;font-size:1rem;transition:all .2s;text-decoration:none;margin-left:10px}
+    .itch-link:hover{transform:scale(1.06)}
+
+    /* Social Links */
+    .social-links{display:flex;gap:12px;justify-content:center;margin-top:18px;flex-wrap:wrap}
+    .social-link{padding:8px 16px;border:1px solid var(--border);border-radius:20px;font-size:.82rem;transition:all .2s;color:var(--text2)}
+    .social-link:hover{border-color:var(--accent2);color:var(--accent2)}
+
+    /* Footer */
+    footer{text-align:center;padding:36px 20px;border-top:1px solid var(--border);margin-top:40px;color:var(--text2);font-size:.82rem}
+    footer .links{display:flex;gap:18px;justify-content:center;margin-bottom:10px;flex-wrap:wrap}
+    footer a{color:var(--text2);text-decoration:none}
+    footer a:hover{color:var(--accent)}
+
+    @media(max-width:900px){
+      .sidebar{display:none}
+      .main-layout{flex-direction:column}
+      .games-grid{grid-template-columns:repeat(auto-fill,minmax(160px,1fr))}
+      .logo{font-size:2rem}
+      .ad-banner .ad-inner{max-width:320px;height:50px}
+      .ad-banner ins{width:320px;height:50px}
+    }
   </style>
 </head>
 <body>
 
-<!-- Top Ad -->
+<!-- Header Ad -->
 <div class="ad-banner" id="ad-top">
-  <ins class="adsbygoogle" data-ad-client="ca-pub-PLACEHOLDER" data-ad-slot="PLACEHOLDER" style="display:inline-block;width:728px;height:90px"></ins>
+  <div class="ad-inner">
+    <ins class="adsbygoogle" data-ad-client="ca-pub-XXXXXXXXXX" data-ad-slot="HEADER_BANNER" style="display:inline-block;width:728px;height:90px"></ins>
+    <span style="position:absolute">728×90 Header Ad</span>
+  </div>
 </div>
 
-<header>
-  <h1>⚡ JellyBolt Games</h1>
-  <p>16 Free HTML5 Browser Games — No Downloads, Just Play!</p>
+<header class="header">
+  <div class="logo"><span class="jelly">Jelly</span><span class="bolt">Bolt⚡</span> Games</div>
+  <p class="tagline">Free HTML5 Games — Play Instantly in Your Browser</p>
+  <p class="sub-tag">No downloads. No installs. Just fun.</p>
+  <div class="header-stats">
+    <div class="stat"><div class="stat-num">16</div><div class="stat-label">Games</div></div>
+    <div class="stat"><div class="stat-num">100%</div><div class="stat-label">Free</div></div>
+    <div class="stat"><div class="stat-num">0</div><div class="stat-label">Downloads Needed</div></div>
+  </div>
 </header>
 
-<section class="games-grid">
-  <a class="game-card" href="games/asteroid-dash/index.html">
-    <div class="game-thumb">🚀</div>
-    <div class="game-info"><h3>Asteroid Dash</h3><p>Dodge asteroids at breakneck speed in this space arcade shooter.</p><span class="play-btn">▶ Play Now</span></div>
-  </a>
-  <a class="game-card" href="games/bolt-breaker/index.html">
-    <div class="game-thumb">⚡</div>
-    <div class="game-info"><h3>Bolt Breaker</h3><p>Smash bricks with electrifying power-ups and chain combos.</p><span class="play-btn">▶ Play Now</span></div>
-  </a>
-  <a class="game-card" href="games/bounce-blitz/index.html">
-    <div class="game-thumb">🏀</div>
-    <div class="game-info"><h3>Bounce Blitz</h3><p>Bounce your way through challenging physics-based levels.</p><span class="play-btn">▶ Play Now</span></div>
-  </a>
-  <a class="game-card" href="games/brainrot-quiz-battle/index.html">
-    <div class="game-thumb">🧠</div>
-    <div class="game-info"><h3>BrainRot Quiz Battle</h3><p>Test your knowledge with rapid-fire trivia questions.</p><span class="play-btn">▶ Play Now</span></div>
-  </a>
-  <a class="game-card" href="games/card-clash/index.html">
-    <div class="game-thumb">🃏</div>
-    <div class="game-info"><h3>Card Clash</h3><p>Outsmart your opponent in this strategic card battle game.</p><span class="play-btn">▶ Play Now</span></div>
-  </a>
-  <a class="game-card" href="games/code-conquest/index.html">
-    <div class="game-thumb">💻</div>
-    <div class="game-info"><h3>Code Conquest</h3><p>Conquer territories with programming logic and strategy.</p><span class="play-btn">▶ Play Now</span></div>
-  </a>
-  <a class="game-card" href="games/dungeon-bolt/index.html">
-    <div class="game-thumb">⚔️</div>
-    <div class="game-info"><h3>Dungeon Bolt</h3><p>Battle monsters and explore procedurally generated dungeons.</p><span class="play-btn">▶ Play Now</span></div>
-  </a>
-  <a class="game-card" href="games/gravity-dash/index.html">
-    <div class="game-thumb">🌀</div>
-    <div class="game-info"><h3>Gravity Dash</h3><p>Flip gravity to navigate through mind-bending obstacle courses.</p><span class="play-btn">▶ Play Now</span></div>
-  </a>
-  <a class="game-card" href="games/hex-match/index.html">
-    <div class="game-thumb">🔷</div>
-    <div class="game-info"><h3>Hex Match</h3><p>Match hexagonal tiles in this satisfying puzzle experience.</p><span class="play-btn">▶ Play Now</span></div>
-  </a>
-  <a class="game-card" href="games/light-trail/index.html">
-    <div class="game-thumb">💡</div>
-    <div class="game-info"><h3>Light Trail</h3><p>Leave your mark in this high-speed neon trail game.</p><span class="play-btn">▶ Play Now</span></div>
-  </a>
-  <a class="game-card" href="games/memory-matrix/index.html">
-    <div class="game-thumb">🧩</div>
-    <div class="game-info"><h3>Memory Matrix</h3><p>Train your brain with increasingly complex memory patterns.</p><span class="play-btn">▶ Play Now</span></div>
-  </a>
-  <a class="game-card" href="games/neon-snake/index.html">
-    <div class="game-thumb">🐍</div>
-    <div class="game-info"><h3>Neon Snake</h3><p>Classic snake reimagined with neon visuals and power-ups.</p><span class="play-btn">▶ Play Now</span></div>
-  </a>
-  <a class="game-card" href="games/pixel-tower/index.html">
-    <div class="game-thumb">🏗️</div>
-    <div class="game-info"><h3>Pixel Tower</h3><p>Stack blocks perfectly to build the tallest tower possible.</p><span class="play-btn">▶ Play Now</span></div>
-  </a>
-  <a class="game-card" href="games/rhythm-tap/index.html">
-    <div class="game-thumb">🎵</div>
-    <div class="game-info"><h3>Rhythm Tap</h3><p>Tap to the beat in this addictive rhythm action game.</p><span class="play-btn">▶ Play Now</span></div>
-  </a>
-  <a class="game-card" href="games/space-trader/index.html">
-    <div class="game-thumb">🛸</div>
-    <div class="game-info"><h3>Space Trader</h3><p>Buy low, sell high across the galaxy in this trading sim.</p><span class="play-btn">▶ Play Now</span></div>
-  </a>
-  <a class="game-card" href="games/word-rush/index.html">
-    <div class="game-thumb">📝</div>
-    <div class="game-info"><h3>Word Rush</h3><p>Type fast or get crushed in this word-dropping frenzy.</p><span class="play-btn">▶ Play Now</span></div>
-  </a>
-</section>
+<nav class="nav">
+  <a href="#games">🎮 Games</a>
+  <a href="#support">☕ Support Us</a>
+  <a href="https://x.com/JellyBoltGames" target="_blank" rel="noopener">𝕏 Twitter</a>
+  <a href="https://jellyboltgames.itch.io" target="_blank" rel="noopener">🎲 itch.io</a>
+  <a class="random-btn" href="#" onclick="playRandom();return false">🎲 Random Game</a>
+</nav>
 
-<section class="support-section">
-  <h2>☕ Support JellyBolt Games</h2>
-  <p>Love our games? Help us keep making free games for everyone!</p>
-  <a class="support-btn" href="https://buymeacoffee.com/jellyboltgames" target="_blank" rel="noopener">☕ Buy Me a Coffee</a>
-  <a class="more-btn" href="https://jellyboltgames.itch.io" target="_blank" rel="noopener">🎮 More Games on itch.io</a>
-</section>
+<div class="main-layout">
+  <div class="content">
+    <h2 class="section-title" id="games">🎮 <span>All Games</span></h2>
+    <section class="games-grid" id="gamesGrid"></section>
 
-<!-- Bottom Ad -->
+    <section class="support-section" id="support">
+      <h2>☕ Support JellyBolt Games</h2>
+      <p>Love our games? Help us keep making free games for everyone! Every coffee fuels another game.</p>
+      <div>
+        <a class="coffee-btn" href="https://buymeacoffee.com/jellyboltgames" target="_blank" rel="noopener noreferrer">☕ Buy Us a Coffee</a>
+        <a class="itch-link" href="https://jellyboltgames.itch.io" target="_blank" rel="noopener">🎮 itch.io Store</a>
+      </div>
+      <div class="social-links">
+        <a class="social-link" href="https://x.com/JellyBoltGames" target="_blank" rel="noopener">𝕏 Follow on X</a>
+        <a class="social-link" href="https://www.reddit.com/r/JellyBoltGames" target="_blank" rel="noopener">🔺 Reddit</a>
+        <a class="social-link" href="https://jellyboltgames.itch.io" target="_blank" rel="noopener">🎲 itch.io</a>
+      </div>
+    </section>
+  </div>
+
+  <aside class="sidebar">
+    <div class="ad-sidebar">
+      <ins class="adsbygoogle" data-ad-client="ca-pub-XXXXXXXXXX" data-ad-slot="SIDEBAR_TOP" style="display:inline-block;width:300px;height:250px"></ins>
+      <span style="position:absolute">300×250 Sidebar Ad</span>
+    </div>
+    <div style="background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:20px;text-align:center;width:100%">
+      <h3 style="color:var(--accent);margin-bottom:8px;font-size:1rem">⚡ Quick Play</h3>
+      <p style="color:var(--text2);font-size:.82rem;margin-bottom:12px">Jump into a random game!</p>
+      <button onclick="playRandom()" style="padding:10px 24px;background:linear-gradient(135deg,var(--accent),#00cc6a);color:#000;border:none;border-radius:8px;font-weight:700;cursor:pointer;font-size:.9rem">🎲 Random Game</button>
+    </div>
+    <div class="ad-sidebar">
+      <ins class="adsbygoogle" data-ad-client="ca-pub-XXXXXXXXXX" data-ad-slot="SIDEBAR_BOTTOM" style="display:inline-block;width:300px;height:250px"></ins>
+      <span style="position:absolute">300×250 Sidebar Ad</span>
+    </div>
+  </aside>
+</div>
+
+<!-- Footer Ad -->
 <div class="ad-banner" id="ad-bottom">
-  <ins class="adsbygoogle" data-ad-client="ca-pub-PLACEHOLDER" data-ad-slot="PLACEHOLDER" style="display:inline-block;width:728px;height:90px"></ins>
+  <div class="ad-inner">
+    <ins class="adsbygoogle" data-ad-client="ca-pub-XXXXXXXXXX" data-ad-slot="FOOTER_BANNER" style="display:inline-block;width:728px;height:90px"></ins>
+    <span style="position:absolute">728×90 Footer Ad</span>
+  </div>
 </div>
 
 <footer>
-  <p>&copy; 2025 JellyBolt Games. All rights reserved. | <a href="https://jellyboltgames.itch.io">itch.io</a></p>
+  <div class="links">
+    <a href="#games">Games</a>
+    <a href="https://buymeacoffee.com/jellyboltgames" target="_blank" rel="noopener">☕ Support</a>
+    <a href="https://x.com/JellyBoltGames" target="_blank" rel="noopener">Twitter/X</a>
+    <a href="https://jellyboltgames.itch.io" target="_blank" rel="noopener">itch.io</a>
+    <a href="https://www.reddit.com/r/JellyBoltGames" target="_blank" rel="noopener">Reddit</a>
+  </div>
+  <p>&copy; 2025 JellyBolt Games. All games free to play.</p>
 </footer>
 
-<script src="games/shared/ads.js"></script>
-<script>document.addEventListener('DOMContentLoaded',()=>JellyBoltAds.refreshBanners());</script>
+<script>
+const GAMES=[
+{id:'asteroid-dash',name:'Asteroid Dash',emoji:'🚀',genre:'Space Shooter',desc:'Dodge asteroids at breakneck speed in this space arcade shooter.',badge:'Popular'},
+{id:'bolt-breaker',name:'Bolt Breaker',emoji:'⚡',genre:'Breakout',desc:'Smash bricks with electrifying power-ups and chain combos.',badge:''},
+{id:'bounce-blitz',name:'Bounce Blitz',emoji:'🏐',genre:'Arcade',desc:'Bounce your way through challenging physics-based levels.',badge:''},
+{id:'brainrot-quiz-battle',name:'BrainRot Quiz Battle',emoji:'🧠',genre:'Trivia',desc:'Test your knowledge with rapid-fire trivia questions.',badge:'New'},
+{id:'card-clash',name:'Card Clash',emoji:'🃏',genre:'Card Battle',desc:'Outsmart your opponent in this strategic card battle game.',badge:''},
+{id:'code-conquest',name:'Code Conquest',emoji:'💻',genre:'Strategy',desc:'Conquer territories with programming logic and strategy.',badge:''},
+{id:'dungeon-bolt',name:'Dungeon Bolt',emoji:'⚔️',genre:'Roguelike',desc:'Battle monsters and explore procedurally generated dungeons.',badge:'Premium'},
+{id:'gravity-dash',name:'Gravity Dash',emoji:'🌀',genre:'Platformer',desc:'Flip gravity to navigate through mind-bending obstacle courses.',badge:''},
+{id:'hex-match',name:'Hex Match',emoji:'🔷',genre:'Puzzle',desc:'Match hexagonal tiles in this satisfying puzzle experience.',badge:'Popular'},
+{id:'light-trail',name:'Light Trail',emoji:'💡',genre:'Arcade',desc:'Leave your mark in this high-speed neon trail game.',badge:''},
+{id:'memory-matrix',name:'Memory Matrix',emoji:'🧩',genre:'Memory',desc:'Train your brain with increasingly complex memory patterns.',badge:''},
+{id:'neon-snake',name:'Neon Snake',emoji:'🐍',genre:'Classic',desc:'Classic snake reimagined with neon visuals and power-ups.',badge:'Popular'},
+{id:'pixel-tower',name:'Pixel Tower',emoji:'🏗️',genre:'Stacking',desc:'Stack blocks perfectly to build the tallest tower possible.',badge:''},
+{id:'rhythm-tap',name:'Rhythm Tap',emoji:'🎵',genre:'Rhythm',desc:'Tap to the beat in this addictive rhythm action game.',badge:'Popular'},
+{id:'space-trader',name:'Space Trader',emoji:'🛸',genre:'Trading Sim',desc:'Buy low, sell high across the galaxy in this trading sim.',badge:''},
+{id:'word-rush',name:'Word Rush',emoji:'⌨️',genre:'Typing',desc:'Type fast or get crushed in this word-dropping frenzy.',badge:''}
+];
+const grid=document.getElementById('gamesGrid');
+GAMES.forEach(g=>{
+const card=document.createElement('div');
+card.className='game-card';
+card.innerHTML=`<div class="game-thumb">${g.emoji}${g.badge?'<span class="game-badge">'+g.badge+'</span>':''}</div><div class="game-info"><h3>${g.name}</h3><p class="game-genre">${g.genre}</p><div class="game-actions"><a class="play-btn" href="games/${g.id}/index.html">▶ Play Now</a><a class="itch-btn" href="https://jellyboltgames.itch.io/${g.id}" target="_blank" rel="noopener">itch.io</a></div></div>`;
+grid.appendChild(card);
+});
+function playRandom(){var g=GAMES[Math.floor(Math.random()*GAMES.length)];window.location.href='games/'+g.id+'/index.html';}
+</script>
+
+<!-- AdSense script placeholder (uncomment with real pub ID) -->
+<!-- <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-XXXXXXXXXX" crossorigin="anonymous"></script> -->
+
 </body>
 </html>
