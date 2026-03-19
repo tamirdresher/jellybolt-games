@@ -46,4 +46,12 @@ Each decision follows: **Date | Decision | Rationale | Decided By**
 
 ## Game-Specific Decisions
 
-*(To be added as development progresses)*
+### 2025-03 — Code Conquest Added to Portfolio (Game 4)
+- **Decision:** Added Code Conquest as the 4th game in the JellyBolt portfolio
+- **Rationale:** Strategy board game fills a different genre niche (board games vs trivia/arcade/idle). Pass-and-play multiplayer requires no backend infrastructure for MVP, reducing development complexity. Tech startup theme appeals to older teens.
+- **Decided by:** Mario (picard)
+
+### 2025-03 — Launch Order: Bounce Blitz First
+- **Decision:** Launch Bounce Blitz first, then BrainRot Quiz Battle, then Idle Critter Farm
+- **Rationale:** Bounce Blitz has the fastest build time (2-4 weeks), lets us test the full monetization pipeline (RevenueCat, Play Store) before investing in more complex games.
+- **Decided by:** Mario (picard)

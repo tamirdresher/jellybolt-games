@@ -39,6 +39,34 @@ Every JellyBolt game is **free to download and play forever**. We monetize throu
 
 ---
 
+## 🏷️ itch.io Pricing Tiers
+
+All JellyBolt games are distributed on [itch.io](https://jellyboltgames.itch.io) with the following pricing structure:
+
+| Tier | Price | Games | Strategy |
+|------|-------|-------|----------|
+| **Free** | $0 (Pay What You Want) | BrainRot Quiz Battle, Code Conquest, Bounce Blitz, Memory Matrix, Pixel Tower, Word Rush, Gravity Dash, Card Clash, Light Trail, Bolt Breaker, Space Trader | Audience growth — maximize plays, build community |
+| **Suggested Tip** | $1-$2 (Pay What You Want) | Neon Snake ($1), Asteroid Dash ($1), Hex Match ($1), Rhythm Tap ($2) | Low-friction support — players pay if they enjoy it |
+| **Premium** | $2.99 (fixed) | Dungeon Bolt | Flagship title — deeper content justifies the price |
+
+### Pay What You Want Strategy
+
+- All free games include a "Support JellyBolt" link in-game
+- itch.io "Name Your Price" enabled with $0 minimum
+- Suggested amounts displayed on game pages
+- Thank-you message for any contribution
+
+### Future Pricing Plans
+
+| Product | Target Price | Timeline |
+|---------|-------------|----------|
+| **JellyBolt Bundle** (all 16 games) | $4.99 | Q4 2025 |
+| **Premium Game Pack** (5 best games) | $2.99 | Q4 2025 |
+| **New Premium Title** (TBD) | $4.99 | Q1 2026 |
+| **Merch Store** (stickers, shirts) | $5-25 per item | Q1 2026 |
+
+---
+
 ## 🚫 What We Will NEVER Do
 
 | Prohibited | Reason |

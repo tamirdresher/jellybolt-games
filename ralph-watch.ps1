@@ -12,7 +12,8 @@ $Owner = "tamirdresher"
 $GameRepos = @(
     "brainrot-quiz-battle",
     "bounce-blitz",
-    "idle-critter-farm"
+    "idle-critter-farm",
+    "code-conquest"
 )
 $StudioRepo = "jellybolt-games"
 $AllRepos = @($StudioRepo) + $GameRepos

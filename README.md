@@ -148,4 +148,21 @@ For the full catalog with pricing details, see [GAMES_CATALOG.md](./GAMES_CATALO
 
 ---
 
+## 💝 Support JellyBolt
+
+Love our games? Here's how you can support the studio:
+
+| Way to Support | Link |
+|---------------|------|
+| ⭐ **Star this repo** | You're already here! |
+| 🎮 **Play our games** | [jellyboltgames.itch.io](https://jellyboltgames.itch.io) |
+| 💰 **Pay what you want** | Most games have a "Name your price" option on itch.io |
+| ⚡ **Buy Dungeon Bolt** | [Our flagship game — $2.99](https://jellyboltgames.itch.io/dungeon-bolt) |
+| 📢 **Share with friends** | Tweet, post, tell your gamer friends! |
+| 🐛 **Report bugs** | [Open an issue](https://github.com/tamirdresher/jellybolt-games/issues) |
+
+> Every play, every star, every share helps us make more games. Thank you! ⚡
+
+---
+
 <sub>⚡ Built with love by JellyBolt Games</sub>
