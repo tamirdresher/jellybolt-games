@@ -11,32 +11,34 @@
 body { background: #0a0a1a; display: flex; align-items: center; justify-content: center; height: 100vh; overflow: hidden; touch-action: none; padding-bottom: 102px; }
 canvas { border: 2px solid #1a1a3a; border-radius: 8px; }
 </style>
+<style>
+/* JellyBolt Monetization */
+.jb-ad-banner{text-align:center;padding:6px 0;background:#0d0d22;width:100%;z-index:998}
+.jb-ad-banner ins{display:inline-block;width:728px;max-width:100%;height:90px}
+.jb-monetization-bar{position:fixed;bottom:0;left:0;width:100%;display:flex;justify-content:center;align-items:center;gap:10px;padding:8px 12px;background:rgba(10,10,26,.95);border-top:1px solid #222244;z-index:9998;flex-wrap:wrap}
+.jb-monetization-bar a{display:inline-flex;align-items:center;gap:4px;padding:7px 14px;border-radius:8px;font-size:.82rem;font-weight:600;text-decoration:none;transition:transform .15s}
+.jb-monetization-bar a:hover{transform:scale(1.05)}
+.jb-btn-coffee{background:linear-gradient(135deg,#ffdd00,#ff8800);color:#000}
+.jb-btn-games{background:linear-gradient(135deg,#00ff88,#00ccff);color:#000}
+.jb-btn-share{background:linear-gradient(135deg,#1da1f2,#0d8ecf);color:#fff}
+.jb-btn-share-fb{background:linear-gradient(135deg,#1877f2,#0d5bbf);color:#fff}
+.jb-btn-share-wa{background:linear-gradient(135deg,#25d366,#128c3e);color:#fff}
+#jb-interstitial{display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,.85);z-index:99999;justify-content:center;align-items:center;flex-direction:column}
+#jb-interstitial .jb-interstitial-box{background:#14142a;border:1px solid #333;border-radius:14px;padding:30px;text-align:center;max-width:360px}
+#jb-interstitial .jb-interstitial-close{margin-top:14px;padding:8px 24px;background:#00ff88;color:#000;border:none;border-radius:8px;font-weight:700;cursor:pointer;font-size:.9rem}
+</style>
 </head>
 <body>
+
+<!-- JellyBolt Ads: Top Banner -->
+<div class="jb-ad-banner" id="ad-top"><ins class="adsbygoogle" data-ad-client="ca-pub-PLACEHOLDER" data-ad-slot="PLACEHOLDER" style="display:inline-block;width:728px;height:90px"></ins></div>
+
 <canvas id="c"></canvas>
 
 <!-- Google AdSense Banner Ad — paste your ad unit code below -->
-<div id="ad-banner" style="position:fixed;bottom:0;left:0;width:100%;text-align:center;padding:6px 0;background:rgba(0,0,0,0.9);z-index:999;">
-  <!-- TODO: Replace with your AdSense ad unit code -->
-  <!-- <ins class="adsbygoogle" style="display:inline-block;width:728px;height:90px" data-ad-client="ca-pub-XXXXXXXXXXXXXXXX" data-ad-slot="XXXXXXXXXX"></ins> -->
-  <div style="width:728px;max-width:100%;height:90px;margin:0 auto;background:#1a1a2e;border:1px dashed #333;display:flex;align-items:center;justify-content:center;color:#555;font-family:system-ui;font-size:13px;">
-    📢 Ad Space — Replace with AdSense code
-  </div>
 </div>
 
 <!-- Interstitial Ad — shown between rounds/deaths -->
-<div id="ad-interstitial" style="display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.9);z-index:9999;align-items:center;justify-content:center;flex-direction:column;">
-  <div style="text-align:center;padding:20px;">
-    <div style="color:#888;font-family:system-ui;margin-bottom:12px;font-size:13px;text-transform:uppercase;letter-spacing:2px;">Advertisement</div>
-    <!-- TODO: Replace with your AdSense interstitial ad unit code -->
-    <!-- <ins class="adsbygoogle" style="display:inline-block;width:336px;height:280px" data-ad-client="ca-pub-XXXXXXXXXXXXXXXX" data-ad-slot="XXXXXXXXXX"></ins> -->
-    <div style="width:336px;height:280px;margin:0 auto;background:#1a1a2e;border:1px dashed #333;display:flex;align-items:center;justify-content:center;color:#555;font-family:system-ui;font-size:13px;">
-      📢 Interstitial Ad — Replace with AdSense code
-    </div>
-    <button onclick="closeInterstitialAd()" style="margin-top:15px;padding:10px 30px;background:#333;color:#fff;border:none;border-radius:6px;cursor:pointer;font-size:15px;font-family:system-ui;">Continue ▶</button>
-  </div>
-</div>
-
 <script>
 // === JellyBolt Ad Management ===
 let _adInterstitialCount = 0;
@@ -360,6 +362,23 @@ function loop(ts) {
 }
 requestAnimationFrame(loop);
 </script>
-<script src="../shared/monetization.js"></script>
+
+<!-- JellyBolt Ads: Bottom Banner -->
+<div class="jb-ad-banner" id="ad-bottom"><ins class="adsbygoogle" data-ad-client="ca-pub-PLACEHOLDER" data-ad-slot="PLACEHOLDER" style="display:inline-block;width:728px;height:90px"></ins></div>
+
+<!-- JellyBolt Interstitial -->
+<div id="jb-interstitial"><div class="jb-interstitial-box"><p style="color:#aaa;font-size:.8rem">Advertisement</p><div style="width:300px;height:250px;background:#1a1a3a;display:flex;align-items:center;justify-content:center;border-radius:8px;margin:10px auto;color:#555"><ins class="adsbygoogle" data-ad-client="ca-pub-PLACEHOLDER" data-ad-slot="PLACEHOLDER" style="display:inline-block;width:300px;height:250px"></ins></div><button class="jb-interstitial-close" onclick="this.closest('#jb-interstitial').style.display='none'">Continue Playing</button></div></div>
+
+<!-- JellyBolt Monetization Bar -->
+<div class="jb-monetization-bar">
+  <a class="jb-btn-coffee" href="https://buymeacoffee.com/jellyboltgames" target="_blank" rel="noopener">&#9749; Support JellyBolt</a>
+  <a class="jb-btn-games" href="https://jellyboltgames.itch.io" target="_blank" rel="noopener">&#127918; More Games</a>
+  <a class="jb-btn-share" href="#" onclick="JellyBoltAds.shareScore('Neon Snake',window._jbLastScore||0);return false">&#128038; Share Score</a>
+  <a class="jb-btn-share-fb" href="https://www.facebook.com/sharer/sharer.php?u=https://jellyboltgames.itch.io" target="_blank" rel="noopener">&#128216; Share</a>
+  <a class="jb-btn-share-wa" href="https://wa.me/?text=Play%20Neon%20Snake%20at%20https://jellyboltgames.itch.io" target="_blank" rel="noopener">&#128172; WhatsApp</a>
+</div>
+
+<script src="../shared/ads.js"></script>
+
 </body>
 </html>
