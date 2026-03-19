@@ -1,0 +1,31 @@
+{
+  "affiliates": {
+    "unity_affiliate": {
+      "program": "Unity Affiliate Program",
+      "signup_url": "https://unity.com/partners",
+      "status": "pending_signup"
+    },
+    "jetbrains": {
+      "program": "JetBrains Affiliate Program (Rider)",
+      "signup_url": "https://www.jetbrains.com/company/partners/affiliate/",
+      "status": "pending_signup"
+    }
+  },
+  "adsense": {
+    "publisher_id": "ca-pub-PLACEHOLDER",
+    "status": "pending_signup"
+  },
+  "gumroad": {
+    "store_url": "https://tdsquad.gumroad.com",
+    "products": ["jnmqpd", "nnefv", "qtmyl"],
+    "status": "active"
+  },
+  "buymeacoffee": {
+    "url": "https://buymeacoffee.com/jellyboltgames",
+    "status": "pending_setup"
+  },
+  "itchio": {
+    "store_url": "https://jellybolt.itch.io",
+    "status": "active"
+  }
+}
