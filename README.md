@@ -23,6 +23,9 @@ JellyBolt Games is an indie game studio focused on creating **free-to-play brows
 | **🔷 Hex Match** | Hex Puzzle | [▶ Play](https://jellyboltgames.itch.io/hex-match) | ✅ Published |
 | **🎵 Rhythm Tap** | Rhythm / Music | [▶ Play](https://jellyboltgames.itch.io/rhythm-tap) | ✅ Published |
 | **🔄 Gravity Dash** | Platformer | [▶ Play](https://jellyboltgames.itch.io/gravity-dash) | ✅ Published |
+| **🃏 Card Clash** | Card Battle | [▶ Play](https://jellyboltgames.itch.io/card-clash) | ✅ Published |
+| **💡 Light Trail** | Tron Arena | [▶ Play](https://jellyboltgames.itch.io/light-trail) | ✅ Published |
+| **⚡ Dungeon Bolt** | Roguelite RPG | [▶ Play](https://jellyboltgames.itch.io/dungeon-bolt) | ✅ $2.99 Flagship |
 
 ---
 
@@ -75,7 +78,10 @@ jellybolt-games/                # Studio HQ (this repo)
 │   ├── word-rush/              # ⌨️ Typing speed game
 │   ├── hex-match/              # 🔷 Hex tile matching puzzle
 │   ├── rhythm-tap/             # 🎵 4-lane rhythm game
-│   └── gravity-dash/           # 🔄 Gravity-flipping platformer
+│   ├── gravity-dash/           # 🔄 Gravity-flipping platformer
+│   ├── card-clash/             # 🃏 Card battle vs AI
+│   ├── light-trail/            # 💡 Tron-style arena game
+│   └── dungeon-bolt/           # ⚡ Roguelite dungeon crawler (flagship)
 ├── store-listings/             # itch.io & store metadata
 ├── docs/                       # Studio docs
 ├── .squad/                     # Team configuration
@@ -118,6 +124,15 @@ Notes fall across 4 lanes — hit them in time with D-F-J-K keys or tap the lane
 
 ### 🔄 Gravity Dash
 Run through a side-scrolling obstacle course and flip gravity with one tap! Dodge spikes, moving platforms, and walls while collecting stars. Speed increases over time.
+
+### 🃏 Card Clash
+Play cards against the AI in a best-of-7 battle! Higher card wins the round. Special powers add depth — Double your card's value, Shield against a loss, or Peek at the AI's pick before choosing.
+
+### 💡 Light Trail
+Tron-inspired arena survival. Steer your light bike with arrow keys or swipe, leaving a permanent trail behind you. Crash into any wall or trail and you're out. AI opponent with smart pathfinding.
+
+### ⚡ Dungeon Bolt *(Flagship — $2.99)*
+JellyBolt's premium roguelite dungeon crawler. Descend 5 floors of procedurally generated rooms — fight 11 enemy types, collect loot from treasure rooms, rest at campfires, buy gear from merchants. Each run is unique. Permadeath means every decision matters.
 
 ---
 
