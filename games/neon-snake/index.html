@@ -4,14 +4,56 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
 <title>Neon Snake — JellyBolt Games</title>
+<!-- Google AdSense — uncomment and add your publisher ID when approved -->
+<!-- <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-XXXXXXXXXXXXXXXX" crossorigin="anonymous"></script> -->
 <style>
 * { margin: 0; padding: 0; box-sizing: border-box; }
-body { background: #0a0a1a; display: flex; align-items: center; justify-content: center; height: 100vh; overflow: hidden; touch-action: none; }
+body { background: #0a0a1a; display: flex; align-items: center; justify-content: center; height: 100vh; overflow: hidden; touch-action: none; padding-bottom: 102px; }
 canvas { border: 2px solid #1a1a3a; border-radius: 8px; }
 </style>
 </head>
 <body>
 <canvas id="c"></canvas>
+
+<!-- Google AdSense Banner Ad — paste your ad unit code below -->
+<div id="ad-banner" style="position:fixed;bottom:0;left:0;width:100%;text-align:center;padding:6px 0;background:rgba(0,0,0,0.9);z-index:999;">
+  <!-- TODO: Replace with your AdSense ad unit code -->
+  <!-- <ins class="adsbygoogle" style="display:inline-block;width:728px;height:90px" data-ad-client="ca-pub-XXXXXXXXXXXXXXXX" data-ad-slot="XXXXXXXXXX"></ins> -->
+  <div style="width:728px;max-width:100%;height:90px;margin:0 auto;background:#1a1a2e;border:1px dashed #333;display:flex;align-items:center;justify-content:center;color:#555;font-family:system-ui;font-size:13px;">
+    📢 Ad Space — Replace with AdSense code
+  </div>
+</div>
+
+<!-- Interstitial Ad — shown between rounds/deaths -->
+<div id="ad-interstitial" style="display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.9);z-index:9999;align-items:center;justify-content:center;flex-direction:column;">
+  <div style="text-align:center;padding:20px;">
+    <div style="color:#888;font-family:system-ui;margin-bottom:12px;font-size:13px;text-transform:uppercase;letter-spacing:2px;">Advertisement</div>
+    <!-- TODO: Replace with your AdSense interstitial ad unit code -->
+    <!-- <ins class="adsbygoogle" style="display:inline-block;width:336px;height:280px" data-ad-client="ca-pub-XXXXXXXXXXXXXXXX" data-ad-slot="XXXXXXXXXX"></ins> -->
+    <div style="width:336px;height:280px;margin:0 auto;background:#1a1a2e;border:1px dashed #333;display:flex;align-items:center;justify-content:center;color:#555;font-family:system-ui;font-size:13px;">
+      📢 Interstitial Ad — Replace with AdSense code
+    </div>
+    <button onclick="closeInterstitialAd()" style="margin-top:15px;padding:10px 30px;background:#333;color:#fff;border:none;border-radius:6px;cursor:pointer;font-size:15px;font-family:system-ui;">Continue ▶</button>
+  </div>
+</div>
+
+<script>
+// === JellyBolt Ad Management ===
+let _adInterstitialCount = 0;
+function showInterstitialAd() {
+  _adInterstitialCount++;
+  // Show interstitial ad every 2nd death/game-over
+  if (_adInterstitialCount % 2 === 0) {
+    document.getElementById('ad-interstitial').style.display = 'flex';
+    // When real AdSense is set up, uncomment:
+    // (adsbygoogle = window.adsbygoogle || []).push({});
+  }
+}
+function closeInterstitialAd() {
+  document.getElementById('ad-interstitial').style.display = 'none';
+}
+</script>
+
 <script>
 const canvas = document.getElementById('c');
 const ctx = canvas.getContext('2d');
@@ -83,6 +125,8 @@ function gameStep() {
   // Self collision
   if (snake.some(s => s.x === head.x && s.y === head.y)) {
     state = STATE.DEAD;
+    if(window.jbShowInterstitial)jbShowInterstitial();
+    setTimeout(function(){if(window.jbShareScore)jbShareScore(score)},2000);
     if (score > highScore) { highScore = score; localStorage.setItem('ns_high', highScore.toString()); }
     for (let i = 0; i < 30; i++) {
       particles.push({
@@ -316,5 +360,6 @@ function loop(ts) {
 }
 requestAnimationFrame(loop);
 </script>
+<script src="../shared/monetization.js"></script>
 </body>
 </html>
