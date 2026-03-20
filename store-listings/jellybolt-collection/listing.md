@@ -6,7 +6,7 @@
 JellyBolt Games - Arcade Collection
 
 ### Short Description (80 chars max)
-17+ addictive arcade games - Snake, Puzzles, Space shooters & more! Free to play!
+24 addictive arcade games - Snake, Puzzles, Space shooters & more! Free to play!
 
 ### Category
 Games > Casual
@@ -31,7 +31,7 @@ https://tamirdresher.github.io/jellybolt-games/store-listings/privacy-policy.htm
 com.jellybolt.games
 
 ### Version
-1.0.0
+1.1.0
 
 ### Min SDK
 Android 7.0 (API 24)
@@ -51,7 +51,7 @@ Android 14 (API 34)
 
 ---
 
-## Games Included (17+)
+## Games Included (24)
 1. Neon Snake — Classic Snake
 2. Asteroid Dash — Space Shooter
 3. Memory Matrix — Memory Puzzle
@@ -60,16 +60,22 @@ Android 14 (API 34)
 6. BrainRot Quiz Battle — Trivia
 7. Card Clash — Card Battle
 8. Code Conquest — Strategy
-9. Dungeon Bolt — Roguelike
-10. Gravity Dash — Platformer
-11. Hex Match — Puzzle
-12. Light Trail — Arcade
-13. Maze Runner — Maze
-14. Pixel Tower — Stacking
-15. Rhythm Tap — Rhythm
-16. Riddle Master — Puzzle
-17. Space Trader — Trading
-18. Word Rush — Typing
+9. Color Match — Color Puzzle
+10. Cube Runner — Runner
+11. Dungeon Bolt — Roguelike
+12. Gravity Dash — Platformer
+13. Hex Match — Puzzle
+14. Light Trail — Arcade
+15. Maze Runner — Maze
+16. Pixel Tower — Stacking
+17. Planet Defense — Tower Defense
+18. Rhythm Tap — Rhythm
+19. Riddle Master — Puzzle
+20. Space Orbit — Orbital
+21. Space Trader — Trading
+22. Tower Stack — Stacking
+23. Typing Blitz — Speed Typing
+24. Word Rush — Word Game
 
 ---
 

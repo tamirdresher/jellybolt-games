@@ -24,16 +24,22 @@ public class MainActivity extends AppCompatActivity {
         {"brainrot-quiz-battle", "BrainRot Quiz", "\uD83E\uDDE0", "Trivia"},
         {"card-clash", "Card Clash", "\uD83C\uDCCF", "Card Battle"},
         {"code-conquest", "Code Conquest", "\uD83D\uDCBB", "Strategy"},
+        {"color-match", "Color Match", "\uD83C\uDFA8", "Color Puzzle"},
+        {"cube-runner", "Cube Runner", "\uD83D\uDFE6", "Runner"},
         {"dungeon-bolt", "Dungeon Bolt", "⚔\uFE0F", "Roguelike"},
         {"gravity-dash", "Gravity Dash", "\uD83C\uDF00", "Platformer"},
         {"hex-match", "Hex Match", "\uD83D\uDD37", "Puzzle"},
         {"light-trail", "Light Trail", "\uD83D\uDCA1", "Arcade"},
         {"maze-runner", "Maze Runner", "\uD83C\uDFAE", "Maze"},
         {"pixel-tower", "Pixel Tower", "\uD83C\uDFD7\uFE0F", "Stacking"},
+        {"planet-defense", "Planet Defense", "\uD83C\uDF0D", "Tower Defense"},
         {"rhythm-tap", "Rhythm Tap", "\uD83C\uDFB5", "Rhythm"},
         {"riddle-master", "Riddle Master", "\uD83E\uDD14", "Puzzle"},
+        {"space-orbit", "Space Orbit", "\uD83C\uDF1F", "Orbital"},
         {"space-trader", "Space Trader", "\uD83D\uDEF8", "Trading"},
-        {"word-rush", "Word Rush", "⌨\uFE0F", "Typing"},
+        {"tower-stack", "Tower Stack", "\uD83D\uDDFC", "Stacking"},
+        {"typing-blitz", "Typing Blitz", "⌨\uFE0F", "Speed Typing"},
+        {"word-rush", "Word Rush", "\uD83D\uDCDD", "Word Game"},
     };
 
     @Override
