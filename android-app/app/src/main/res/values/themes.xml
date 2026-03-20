@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="Theme.JellyBolt" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+        <item name="colorPrimary">@color/jb_accent</item>
+        <item name="colorPrimaryDark">@color/jb_bg</item>
+        <item name="colorAccent">@color/jb_accent</item>
+        <item name="android:windowBackground">@color/jb_bg</item>
+        <item name="android:statusBarColor">@color/jb_bg</item>
+        <item name="android:navigationBarColor">@color/jb_bg</item>
+    </style>
+</resources>

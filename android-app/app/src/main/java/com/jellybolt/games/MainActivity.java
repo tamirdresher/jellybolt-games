@@ -1,0 +1,127 @@
+package com.jellybolt.games;
+
+import android.content.Intent;
+import android.os.Bundle;
+import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
+import android.widget.LinearLayout;
+import android.widget.ScrollView;
+import android.widget.TextView;
+
+import androidx.appcompat.app.AppCompatActivity;
+
+public class MainActivity extends AppCompatActivity {
+
+    private static final String BASE_URL = "https://tamirdresher.github.io/jellybolt-games/games/";
+
+    private static final String[][] GAMES = {
+        {"neon-snake", "Neon Snake", "\uD83D\uDC0D", "Classic Snake"},
+        {"asteroid-dash", "Asteroid Dash", "\uD83D\uDE80", "Space Shooter"},
+        {"memory-matrix", "Memory Matrix", "\uD83E\uDDE9", "Memory Puzzle"},
+        {"bolt-breaker", "Bolt Breaker", "⚡", "Breakout"},
+        {"bounce-blitz", "Bounce Blitz", "\uD83C\uDFD0", "Arcade"},
+        {"brainrot-quiz-battle", "BrainRot Quiz", "\uD83E\uDDE0", "Trivia"},
+        {"card-clash", "Card Clash", "\uD83C\uDCCF", "Card Battle"},
+        {"code-conquest", "Code Conquest", "\uD83D\uDCBB", "Strategy"},
+        {"dungeon-bolt", "Dungeon Bolt", "⚔\uFE0F", "Roguelike"},
+        {"gravity-dash", "Gravity Dash", "\uD83C\uDF00", "Platformer"},
+        {"hex-match", "Hex Match", "\uD83D\uDD37", "Puzzle"},
+        {"light-trail", "Light Trail", "\uD83D\uDCA1", "Arcade"},
+        {"maze-runner", "Maze Runner", "\uD83C\uDFAE", "Maze"},
+        {"pixel-tower", "Pixel Tower", "\uD83C\uDFD7\uFE0F", "Stacking"},
+        {"rhythm-tap", "Rhythm Tap", "\uD83C\uDFB5", "Rhythm"},
+        {"riddle-master", "Riddle Master", "\uD83E\uDD14", "Puzzle"},
+        {"space-trader", "Space Trader", "\uD83D\uDEF8", "Trading"},
+        {"word-rush", "Word Rush", "⌨\uFE0F", "Typing"},
+    };
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        requestWindowFeature(Window.FEATURE_NO_TITLE);
+        getWindow().setFlags(
+            WindowManager.LayoutParams.FLAG_FULLSCREEN,
+            WindowManager.LayoutParams.FLAG_FULLSCREEN
+        );
+
+        ScrollView scrollView = new ScrollView(this);
+        scrollView.setBackgroundColor(0xFF0A0A1A);
+
+        LinearLayout layout = new LinearLayout(this);
+        layout.setOrientation(LinearLayout.VERTICAL);
+        layout.setPadding(32, 48, 32, 48);
+
+        // Title
+        TextView title = new TextView(this);
+        title.setText("⚡ JellyBolt Games");
+        title.setTextSize(28);
+        title.setTextColor(0xFF00FF88);
+        title.setGravity(android.view.Gravity.CENTER);
+        title.setPadding(0, 0, 0, 16);
+        layout.addView(title);
+
+        // Subtitle
+        TextView subtitle = new TextView(this);
+        subtitle.setText("Tap a game to play!");
+        subtitle.setTextSize(16);
+        subtitle.setTextColor(0xFF8888AA);
+        subtitle.setGravity(android.view.Gravity.CENTER);
+        subtitle.setPadding(0, 0, 0, 32);
+        layout.addView(subtitle);
+
+        // Game cards
+        for (String[] game : GAMES) {
+            LinearLayout card = new LinearLayout(this);
+            card.setOrientation(LinearLayout.HORIZONTAL);
+            card.setPadding(24, 20, 24, 20);
+            card.setBackgroundColor(0xFF1A1A3A);
+
+            LinearLayout.LayoutParams cardParams = new LinearLayout.LayoutParams(
+                LinearLayout.LayoutParams.MATCH_PARENT,
+                LinearLayout.LayoutParams.WRAP_CONTENT
+            );
+            cardParams.setMargins(0, 0, 0, 12);
+            card.setLayoutParams(cardParams);
+
+            // Emoji
+            TextView emoji = new TextView(this);
+            emoji.setText(game[2]);
+            emoji.setTextSize(32);
+            emoji.setPadding(0, 0, 16, 0);
+            card.addView(emoji);
+
+            // Name + genre
+            LinearLayout textLayout = new LinearLayout(this);
+            textLayout.setOrientation(LinearLayout.VERTICAL);
+            textLayout.setGravity(android.view.Gravity.CENTER_VERTICAL);
+
+            TextView name = new TextView(this);
+            name.setText(game[1]);
+            name.setTextSize(18);
+            name.setTextColor(0xFFFFFFFF);
+            textLayout.addView(name);
+
+            TextView genre = new TextView(this);
+            genre.setText(game[3]);
+            genre.setTextSize(12);
+            genre.setTextColor(0xFF888888);
+            textLayout.addView(genre);
+
+            card.addView(textLayout);
+
+            final String gameId = game[0];
+            card.setOnClickListener(v -> {
+                Intent intent = new Intent(MainActivity.this, GameActivity.class);
+                intent.putExtra("game_url", BASE_URL + gameId + "/index.html");
+                intent.putExtra("game_name", game[1]);
+                startActivity(intent);
+            });
+
+            layout.addView(card);
+        }
+
+        scrollView.addView(layout);
+        setContentView(scrollView);
+    }
+}

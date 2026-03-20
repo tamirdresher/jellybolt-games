@@ -2,6 +2,15 @@
 # Build artifacts
 *.zip
 
+# Android build outputs
+android-app/app/build/
+android-app/.gradle/
+android-app/build/
+android-app/local.properties
+*.keystore
+
+# Gradle
+.gradle/
 
 # Local credentials
 .env

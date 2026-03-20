@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="jb_bg">#0A0A1A</color>
+    <color name="jb_accent">#00FF88</color>
+    <color name="jb_surface">#1A1A3A</color>
+    <color name="jb_text">#E0E0E0</color>
+    <color name="jb_text2">#8888AA</color>
+</resources>
