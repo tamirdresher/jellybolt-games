@@ -21,3 +21,24 @@
 - 7 monetized ($1-$2.99), flagship Dungeon Bolt $2.99
 - Game Bundle on Gumroad: $4.99 (ID: qtmyl)
 - Email: jellybolt@sharebot.net (stored as BRAND_EMAIL secret)
+
+
+## GitHub Organization
+
+This repo is forked into **github.com/jellybolt-games/jellybolt-games** — the brand's independent org.
+
+**Remotes:**
+- `origin` → tamirdresher/jellybolt-games (personal, legacy)
+- `org` → jellybolt-games/jellybolt-games (org, primary going forward)
+
+**Push to BOTH remotes:** `git push origin main && git push org main`
+
+**GitHub Actions Secrets (on org repo):**
+- `BRAND_EMAIL` — jellybolt@sharebot.net
+- `BRAND_NAME` — JellyBolt Games
+- `GUMROAD_PRODUCT_IDS` — Gumroad product IDs
+- `GMAIL_ADDRESS` — Gmail for platform signups
+
+**Pages URL:** jellybolt-games.github.io/jellybolt-games
+
+**⚠️ NEVER reference 'tamirdresher' or 'Tamir Dresher' in any public-facing content.**
