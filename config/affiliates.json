@@ -1,5 +1,12 @@
 {
   "affiliates": {
+    "amazon_associates": {
+      "program": "Amazon Associates",
+      "tag": "jellybolt-20",
+      "signup_url": "https://affiliate-program.amazon.com",
+      "status": "pending_signup",
+      "notes": "Tag jellybolt-20 is pre-configured. Sign up at affiliate-program.amazon.com to activate. Links already placed on landing page."
+    },
     "unity_affiliate": {
       "program": "Unity Affiliate Program",
       "signup_url": "https://unity.com/partners",
@@ -26,6 +33,13 @@
   },
   "itchio": {
     "store_url": "https://jellybolt.itch.io",
-    "status": "active"
+    "status": "active",
+    "games": 24
+  },
+  "youtube": {
+    "channel_id": "UC0roFVTTy1nSW9Zc7DgcsmQ",
+    "channel_url": "https://www.youtube.com/channel/UC0roFVTTy1nSW9Zc7DgcsmQ",
+    "status": "active",
+    "videos": 12
   }
 }
