@@ -13,7 +13,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 public class MainActivity extends AppCompatActivity {
 
-    private static final String BASE_URL = "https://tamirdresher.github.io/jellybolt-games/games/";
+    private static final String BASE_URL = "https://jellybolt-games.github.io/jellybolt-games/games/";
 
     private static final String[][] GAMES = {
         {"neon-snake", "Neon Snake", "\uD83D\uDC0D", "Classic Snake"},
