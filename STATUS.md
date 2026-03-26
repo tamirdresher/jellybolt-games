@@ -3,7 +3,7 @@ Last updated: 2026-03-21
 
 ## Brand Identity
 - **Name:** JellyBolt Games (JellyBolt⚡)
-- **NEVER mention "Tamir Dresher"** — independent brand
+- **NEVER mention "real owner identity"** — independent brand
 - **Landing page:** `index.html` — 24-game responsive site with affiliate gear section
 - **GitHub Pages:** https://jellybolt-games.github.io/jellybolt-games/
 - **itch.io:** jellyboltgames.itch.io
