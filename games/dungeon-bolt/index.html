@@ -4,426 +4,654 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
 <title>Dungeon Bolt — JellyBolt Games</title>
-<!-- Google AdSense — uncomment and add your publisher ID when approved -->
+<meta name="description" content="Navigate a procedurally generated dungeon. Collect 3 keys, dodge guards, and find the exit! Free browser puzzle game by JellyBolt Games.">
+<meta name="keywords" content="dungeon game, puzzle game, free browser game, HTML5 game, JellyBolt">
 <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8350556723025693" crossorigin="anonymous"></script>
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
-body{background:#0a0a0a;color:#e0d8c8;font-family:'Segoe UI',system-ui,sans-serif;display:flex;align-items:center;justify-content:center;min-height:100vh;overflow:hidden;touch-action:none}
-#app{width:100%;max-width:600px;height:100vh;position:relative;overflow:hidden}
-.screen{display:none;position:absolute;top:0;left:0;width:100%;height:100%;flex-direction:column;align-items:center;justify-content:center}
+:root{
+  --bg:#0a0814;--surface:#110f1e;--border:#1e1a38;
+  --accent:#ffcc00;--danger:#ff4444;--safe:#00ff88;
+  --text:#e8e0d0;--muted:#6b6080;--glow:rgba(255,204,0,.15);
+  --cw:min(calc((min(100vw,560px) - 28px) / 10),calc((100vh - 132px) / 10),52px);
+}
+html,body{height:100%;overflow:hidden;touch-action:none;background:var(--bg);color:var(--text);font-family:'Segoe UI',system-ui,sans-serif}
+a{color:inherit;text-decoration:none}
+/* ── screens ── */
+.screen{display:none;position:fixed;inset:0;flex-direction:column;align-items:center;justify-content:center;padding:20px;text-align:center;z-index:20;background:var(--bg)}
 .screen.active{display:flex}
-.title{font-size:2.8em;font-weight:900;background:linear-gradient(135deg,#ffcc00,#ff9f43);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
-.title-sub{font-size:1.1em;color:#8b8070;margin-bottom:20px}
-.btn{padding:14px 40px;font-size:1.15em;font-weight:700;border:none;border-radius:10px;cursor:pointer;transition:all .2s;margin:5px}
-.btn:hover{transform:translateY(-2px)}
-.btn-play{background:linear-gradient(135deg,#ffcc00,#ff9f43);color:#1a1000;box-shadow:0 4px 20px #ffcc0044}
-.btn-next{background:linear-gradient(135deg,#238636,#2ea043);color:#fff}
-.credit{color:#484038;font-size:.8em;margin-top:20px}
-/* HUD */
-.hud{position:absolute;top:0;left:0;width:100%;padding:8px 12px;display:flex;justify-content:space-between;background:rgba(10,10,10,.92);z-index:10;font-size:.85em;border-bottom:1px solid #2a2520}
-.hud span{font-weight:700}
-.hp-bar{width:80px;height:10px;background:#2a1a1a;border-radius:5px;display:inline-block;vertical-align:middle}
-.hp-fill{height:100%;border-radius:5px;transition:width .3s}
-/* Room */
-.room{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:60px 15px 15px;text-align:center}
-.room-title{font-size:1.5em;font-weight:900;margin-bottom:8px}
-.room-desc{color:#8b8070;margin-bottom:15px;font-size:.95em;min-height:40px}
-.room-icon{font-size:4em;margin:10px 0}
-.enemy-card{background:#1a1210;border:2px solid #3a2a20;border-radius:12px;padding:15px;margin:10px 0;width:90%;max-width:300px}
-.enemy-name{font-size:1.2em;font-weight:900;color:#ff6b6b}
-.enemy-hp{color:#8b8070;font-size:.85em;margin-top:5px}
-.loot-card{background:#1a1a10;border:2px solid #3a3a20;border-radius:12px;padding:12px;margin:8px 0;width:85%;max-width:280px}
-.loot-name{font-weight:700;color:#ffcc00}
-.loot-desc{color:#8b8070;font-size:.8em}
-.choices{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin-top:12px}
-.choice{padding:10px 20px;font-size:1em;font-weight:700;border:2px solid #3a2a20;border-radius:10px;background:#1a1210;color:#e0d8c8;cursor:pointer;transition:all .15s}
-.choice:hover{border-color:#ffcc00;background:#2a2010;transform:translateY(-2px)}
-.choice.attack{border-color:#ff6b6b55}
-.choice.heal{border-color:#00ff8855}
-.choice.flee{border-color:#58a6ff55}
-.log{font-size:.85em;color:#8b8070;margin:8px 0;min-height:25px}
-.floor-label{color:#ffcc00;font-size:.9em;font-weight:700;margin-bottom:5px}
+.overlay{display:none;position:fixed;inset:0;flex-direction:column;align-items:center;justify-content:center;padding:24px;text-align:center;z-index:100;background:rgba(8,6,16,.93);backdrop-filter:blur(6px)}
+.overlay.active{display:flex}
+/* ── menu ── */
+.game-logo{font-size:clamp(2.2rem,9vw,3.6rem);font-weight:900;background:linear-gradient(135deg,#ffcc00,#ff8800);-webkit-background-clip:text;-webkit-text-fill-color:transparent;filter:drop-shadow(0 0 18px #ffcc0044);margin-bottom:6px}
+.game-sub{color:var(--muted);font-size:.9rem;margin-bottom:20px}
+.legend{display:flex;gap:10px;flex-wrap:wrap;justify-content:center;margin:10px 0 18px;font-size:.78rem;color:var(--muted)}
+.legend span{background:var(--surface);border:1px solid var(--border);border-radius:6px;padding:3px 8px}
+/* ── buttons ── */
+.btn{padding:13px 38px;font-size:1.05rem;font-weight:700;border:none;border-radius:12px;cursor:pointer;transition:transform .15s,box-shadow .15s;margin:5px;display:inline-flex;align-items:center;gap:8px;white-space:nowrap}
+.btn:hover{transform:scale(1.05)}
+.btn-primary{background:linear-gradient(135deg,#ffcc00,#ff8800);color:#1a0800;box-shadow:0 4px 20px #ffcc0022}
+.btn-secondary{background:var(--surface);color:var(--text);border:1px solid var(--border)}
+.btn-green{background:linear-gradient(135deg,#00ff88,#00cc6a);color:#001a0c}
+.hs-badge{margin-top:14px;font-size:.85rem;color:var(--muted)}
+.hs-val{color:var(--accent);font-weight:700}
+.ctrl-hint{display:flex;gap:6px;flex-wrap:wrap;justify-content:center;margin-top:10px;font-size:.75rem;color:var(--muted)}
+.kbd{background:var(--surface);border:1px solid var(--border);border-radius:5px;padding:2px 8px;font-family:monospace}
+/* ── HUD ── */
+#hud{position:fixed;top:0;left:0;right:0;height:46px;padding:0 12px;background:rgba(8,6,20,.96);border-bottom:1px solid var(--border);display:none;align-items:center;justify-content:space-between;gap:6px;z-index:50;font-size:.78rem;flex-wrap:nowrap}
+#hud.show{display:flex}
+.hud-seg{display:flex;align-items:center;gap:3px;font-weight:700;white-space:nowrap}
+.hearts{font-size:1rem;letter-spacing:1px}
+/* ── game wrap ── */
+#game-wrap{position:fixed;inset:0;display:none;align-items:center;justify-content:center;padding-top:46px;padding-bottom:72px}
+#game-wrap.show{display:flex}
+/* ── dungeon grid ── */
+#dungeon{
+  display:grid;
+  grid-template-columns:repeat(10,var(--cw));
+  grid-template-rows:repeat(10,var(--cw));
+  gap:2px;background:#08060f;border:2px solid var(--border);border-radius:8px;padding:3px;
+  position:relative;touch-action:none
+}
+/* ── cells ── */
+.cell{
+  width:var(--cw);height:var(--cw);
+  display:flex;align-items:center;justify-content:center;
+  font-size:calc(var(--cw) * 0.6);
+  border-radius:3px;transition:background .12s;
+  position:relative;user-select:none;line-height:1;
+}
+.c-wall{background:#1a1530}
+.c-floor{background:#13101e}
+.c-player{background:#2a224a;animation:glow-player 1.4s ease-in-out infinite}
+.c-exit-locked{background:#1a1530}
+.c-exit{background:#1a2a1a}
+.c-key{background:#2a2518}
+.c-coin{background:#252210}
+.c-enemy{background:#2a1515;animation:glow-enemy .9s ease-in-out infinite}
+.c-trap-h{background:#13101e}
+.c-trap-r{background:#2a1015}
+@keyframes glow-player{0%,100%{box-shadow:0 0 0 0 transparent}50%{box-shadow:0 0 12px 3px #ffcc0055}}
+@keyframes glow-enemy{0%,100%{box-shadow:0 0 0 0 transparent}50%{box-shadow:0 0 10px 3px #ff444466}}
+/* ── damage flash ── */
+@keyframes dmg-flash{0%,100%{background:transparent}40%{background:rgba(255,60,60,.3)}}
+.dmg{animation:dmg-flash .4s ease}
+/* ── level banner ── */
+#lvl-banner{
+  position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);
+  background:linear-gradient(135deg,rgba(255,204,0,.12),rgba(255,136,0,.08));
+  border:2px solid rgba(255,204,0,.5);border-radius:16px;
+  padding:14px 44px;font-size:clamp(1.6rem,6vw,2.5rem);font-weight:900;
+  color:#ffcc00;text-align:center;
+  opacity:0;pointer-events:none;z-index:300;transition:opacity .3s
+}
+#lvl-banner.show{opacity:1}
+/* ── toast ── */
+#toast{
+  position:fixed;bottom:80px;left:50%;transform:translateX(-50%);
+  background:rgba(18,14,36,.97);border:1px solid var(--border);
+  border-radius:10px;padding:8px 20px;font-size:.88rem;font-weight:700;
+  white-space:nowrap;opacity:0;transition:opacity .25s;pointer-events:none;z-index:200;
+  max-width:90vw;text-align:center
+}
+#toast.show{opacity:1}
+/* ── stat boxes ── */
+.stats-row{display:flex;gap:12px;flex-wrap:wrap;justify-content:center;margin:12px 0}
+.stat-box{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:10px 18px;min-width:84px;text-align:center}
+.sv{font-size:1.5rem;font-weight:900;color:var(--accent)}
+.sl{font-size:.68rem;color:var(--muted);text-transform:uppercase;letter-spacing:.5px;margin-top:2px}
+/* ── overlay titles ── */
+.ov-title{font-size:clamp(1.6rem,6vw,2.8rem);font-weight:900;margin-bottom:8px}
+.ov-sub{color:var(--muted);font-size:.9rem;margin-bottom:16px;max-width:340px}
+/* ── help ── */
+.help-list{text-align:left;max-width:320px;line-height:1.8;font-size:.88rem;margin-bottom:16px}
+.help-list p{margin-bottom:2px}
+/* ── JellyBolt bar ── */
+#jb-bar{
+  position:fixed;bottom:0;left:0;width:100%;height:56px;
+  display:flex;justify-content:center;align-items:center;gap:8px;
+  padding:0 10px;background:rgba(8,6,20,.97);border-top:1px solid var(--border);z-index:9998;flex-wrap:wrap
+}
+#jb-bar a{
+  display:inline-flex;align-items:center;gap:4px;
+  padding:7px 14px;border-radius:8px;font-size:.78rem;font-weight:700;
+  text-decoration:none;transition:transform .15s;color:#000
+}
+#jb-bar a:hover{transform:scale(1.06)}
+.jb-coffee{background:linear-gradient(135deg,#ffdd00,#ff8800)}
+.jb-hub{background:linear-gradient(135deg,#00ff88,#00ccff)}
+.jb-share{background:linear-gradient(135deg,#1da1f2,#0d8ecf);color:#fff!important}
+/* ── interstitial ── */
+#interstitial{display:none;position:fixed;inset:0;background:rgba(0,0,0,.88);z-index:99999;justify-content:center;align-items:center;flex-direction:column}
+.int-box{background:#14142a;border:1px solid #333;border-radius:14px;padding:24px;text-align:center;max-width:340px}
+.int-close{margin-top:12px;padding:8px 28px;background:#ffcc00;color:#000;border:none;border-radius:8px;font-weight:700;cursor:pointer;font-size:.9rem}
 </style>
-<style>
-/* JellyBolt Monetization */
-.jb-ad-banner{text-align:center;padding:6px 0;background:#0d0d22;width:100%;z-index:998}
-.jb-ad-banner ins{display:inline-block;width:728px;max-width:100%;height:90px}
-.jb-monetization-bar{position:fixed;bottom:0;left:0;width:100%;display:flex;justify-content:center;align-items:center;gap:10px;padding:8px 12px;background:rgba(10,10,26,.95);border-top:1px solid #222244;z-index:9998;flex-wrap:wrap}
-.jb-monetization-bar a{display:inline-flex;align-items:center;gap:4px;padding:7px 14px;border-radius:8px;font-size:.82rem;font-weight:600;text-decoration:none;transition:transform .15s}
-.jb-monetization-bar a:hover{transform:scale(1.05)}
-.jb-btn-coffee{background:linear-gradient(135deg,#ffdd00,#ff8800);color:#000}
-.jb-btn-games{background:linear-gradient(135deg,#00ff88,#00ccff);color:#000}
-.jb-btn-share{background:linear-gradient(135deg,#1da1f2,#0d8ecf);color:#fff}
-.jb-btn-share-fb{background:linear-gradient(135deg,#1877f2,#0d5bbf);color:#fff}
-.jb-btn-share-wa{background:linear-gradient(135deg,#25d366,#128c3e);color:#fff}
-#jb-interstitial{display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,.85);z-index:99999;justify-content:center;align-items:center;flex-direction:column}
-#jb-interstitial .jb-interstitial-box{background:#14142a;border:1px solid #333;border-radius:14px;padding:30px;text-align:center;max-width:360px}
-#jb-interstitial .jb-interstitial-close{margin-top:14px;padding:8px 24px;background:#00ff88;color:#000;border:none;border-radius:8px;font-weight:700;cursor:pointer;font-size:.9rem}
-</style>
-<!-- AdSense -->
-<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=JELLYBOLT_ADSENSE_PUB_ID" crossorigin="anonymous"></script>
 </head>
 <body>
 
-<!-- JellyBolt Ads: Top Banner -->
-<div class="jb-ad-banner" id="ad-top"><ins class="adsbygoogle" data-ad-client="ca-pub-PLACEHOLDER" data-ad-slot="PLACEHOLDER" style="display:inline-block;width:728px;height:90px"></ins></div>
+<!-- ── Menu Screen ── -->
+<div id="screen-menu" class="screen active">
+  <div class="game-logo">⚡ Dungeon Bolt</div>
+  <div class="game-sub">Dungeon Crawler by JellyBolt Games</div>
+  <div class="legend">
+    <span>🧙 You</span><span>🚪 Exit</span><span>🗝️ Key</span>
+    <span>💰 Coin</span><span>💀 Guard</span><span>⚠️ Trap</span><span>⬛ Wall</span>
+  </div>
+  <button class="btn btn-primary" onclick="startGame()">⚔️ Enter Dungeon</button>
+  <button class="btn btn-secondary" onclick="showHelp()">❓ How to Play</button>
+  <div class="ctrl-hint">
+    <span class="kbd">↑↓←→</span><span>or</span><span class="kbd">WASD</span>
+    <span>to move &nbsp;·&nbsp; 📱 Swipe on mobile</span>
+  </div>
+  <div class="hs-badge">🏆 Best Score: <span class="hs-val" id="hs-menu">0</span></div>
+</div>
 
-<div id="app">
-  <div id="menu" class="screen active">
-    <div class="title">⚡ Dungeon Bolt</div>
-    <div class="title-sub">A roguelite dungeon crawler by JellyBolt Games</div>
-    <button class="btn btn-play" onclick="startRun()">⚔️ ENTER DUNGEON</button>
-    <div style="margin-top:15px;color:#8b8070;font-size:.85em;max-width:350px;text-align:center">
-      <p>Descend 5 floors. Fight monsters. Collect loot.</p>
-      <p>Each room is a choice — fight, loot, rest, or shop.</p>
-      <p>Permadeath: if you die, start over!</p>
+<!-- ── HUD ── -->
+<div id="hud">
+  <div class="hud-seg"><span id="hud-hp" class="hearts">❤️❤️❤️</span></div>
+  <div class="hud-seg">🗝️ <span id="hud-keys">0</span>/3</div>
+  <div class="hud-seg">💰 <span id="hud-coins">0</span></div>
+  <div class="hud-seg">📊 <span id="hud-score">0</span></div>
+  <div class="hud-seg">🏰 L<span id="hud-level">1</span></div>
+  <div class="hud-seg">⏱ <span id="hud-time">0:00</span></div>
+</div>
+
+<!-- ── Game Grid ── -->
+<div id="game-wrap">
+  <div id="dungeon"></div>
+</div>
+
+<!-- ── Toast ── -->
+<div id="toast"></div>
+
+<!-- ── Level Banner ── -->
+<div id="lvl-banner"></div>
+
+<!-- ── Death Overlay ── -->
+<div id="ov-dead" class="overlay">
+  <div class="ov-title" style="color:var(--danger)">💀 Defeated!</div>
+  <div class="ov-sub" id="dead-msg">You were slain in the dungeon.</div>
+  <div class="stats-row" id="dead-stats"></div>
+  <button class="btn btn-primary" onclick="startGame()">🔄 Try Again</button>
+  <button class="btn btn-secondary" onclick="showMenu()">🏠 Menu</button>
+</div>
+
+<!-- ── Level Clear Overlay ── -->
+<div id="ov-level" class="overlay">
+  <div class="ov-title" style="color:var(--safe)">✅ Level Clear!</div>
+  <div class="ov-sub" id="lc-msg"></div>
+  <div class="stats-row" id="lc-stats"></div>
+  <button class="btn btn-green" id="btn-next" onclick="nextLevel()">➡️ Level 2</button>
+</div>
+
+<!-- ── Victory Overlay ── -->
+<div id="ov-win" class="overlay">
+  <div style="font-size:3rem">🏆</div>
+  <div class="ov-title" style="color:var(--accent)">Dungeon Cleared!</div>
+  <div class="ov-sub">You conquered all 10 levels!</div>
+  <div class="stats-row" id="win-stats"></div>
+  <button class="btn btn-primary" onclick="startGame()">🔄 Play Again</button>
+  <button class="btn btn-secondary" onclick="showMenu()">🏠 Menu</button>
+</div>
+
+<!-- ── Help Overlay ── -->
+<div id="ov-help" class="overlay">
+  <div class="ov-title">❓ How to Play</div>
+  <div class="help-list">
+    <p>🧙 You start top-left. Reach the 🚪 exit at bottom-right.</p>
+    <p>🗝️ Collect <strong>3 keys</strong> to unlock the exit.</p>
+    <p>💰 Grab coins for bonus score (value = level × 10 pts).</p>
+    <p>💀 Guards patrol the dungeon — touching one costs 1 HP.</p>
+    <p>⚠️ Hidden traps look like floor tiles — step to reveal (-1 HP).</p>
+    <p>❤️ You have <strong>3 HP</strong>. Reach 0 = game over.</p>
+    <p>🏰 <strong>10 levels</strong> total — guards get faster each level.</p>
+    <p>🏆 Bonus score: coins + time saved + remaining HP!</p>
+  </div>
+  <button class="btn btn-primary" onclick="closeHelp()">Got it! ⚔️</button>
+</div>
+
+<!-- ── JellyBolt Bar ── -->
+<div id="jb-bar">
+  <a class="jb-coffee" href="https://buymeacoffee.com/jellyboltgames" target="_blank" rel="noopener">☕ Support</a>
+  <a class="jb-hub" href="../../index.html">🎮 More Games</a>
+  <a class="jb-share" href="#" onclick="shareGame();return false">📤 Share</a>
+</div>
+
+<!-- ── Interstitial Ad ── -->
+<div id="interstitial">
+  <div class="int-box">
+    <p style="color:#888;font-size:.78rem;margin-bottom:8px">Advertisement</p>
+    <div style="width:300px;height:250px;background:#1a1a3a;display:flex;align-items:center;justify-content:center;border-radius:8px;margin:0 auto">
+      <ins class="adsbygoogle" data-ad-client="ca-pub-8350556723025693" data-ad-slot="auto" style="display:inline-block;width:300px;height:250px"></ins>
     </div>
-    <div class="credit">⚡ JellyBolt Games — Flagship Title</div>
-  </div>
-
-  <div id="game" class="screen">
-    <div class="hud">
-      <div>❤️ <span id="hp">20</span>/<span id="maxhp">20</span> <div class="hp-bar"><div class="hp-fill" id="hp-bar" style="width:100%;background:#00ff88"></div></div></div>
-      <div>⚔️ <span id="atk">3</span></div>
-      <div>🛡️ <span id="def">1</span></div>
-      <div>💰 <span id="gold">0</span></div>
-    </div>
-    <div class="room" id="room"></div>
-  </div>
-
-  <div id="victory" class="screen">
-    <div style="font-size:3.5em">🏆</div>
-    <div style="font-size:2em;font-weight:900;color:#ffcc00;margin:10px">DUNGEON CLEARED!</div>
-    <div style="color:#8b8070" id="v-stats"></div>
-    <button class="btn btn-play" onclick="startRun()">🔄 New Run</button>
-    <button class="btn btn-next" onclick="showScreen('menu')" style="font-size:.95em;padding:10px 20px">🏠 Menu</button>
-    <div class="credit">⚡ JellyBolt Games</div>
-  </div>
-
-  <div id="death" class="screen">
-    <div style="font-size:3.5em">💀</div>
-    <div style="font-size:2em;font-weight:900;color:#ff6b6b;margin:10px">YOU DIED</div>
-    <div style="color:#8b8070" id="d-stats"></div>
-    <button class="btn btn-play" onclick="startRun()">⚡ Try Again</button>
-    <div class="credit">⚡ JellyBolt Games</div>
+    <button class="int-close" onclick="closeAd()">Continue Playing ▶</button>
   </div>
 </div>
 
-<!-- Google AdSense Banner Ad — paste your ad unit code below -->
-</div>
-
-<!-- Interstitial Ad — shown between rounds/deaths -->
 <script>
-// === JellyBolt Ad Management ===
-let _adInterstitialCount = 0;
-function showInterstitialAd() {
-  _adInterstitialCount++;
-  // Show interstitial ad every 2nd death/game-over
-  if (_adInterstitialCount % 2 === 0) {
-    document.getElementById('ad-interstitial').style.display = 'flex';
-    // When real AdSense is set up, uncomment:
-    // (adsbygoogle = window.adsbygoogle || []).push({});
+// ════════════════════════════════════════════════
+// DUNGEON BOLT — Full Game Logic
+// ════════════════════════════════════════════════
+
+// ── Audio ──────────────────────────────────────
+var _ac;
+function ac(){if(!_ac)_ac=new(window.AudioContext||window.webkitAudioContext)();return _ac;}
+function tone(freq,dur,type,vol,delay){
+  try{
+    var c=ac(),o=c.createOscillator(),g=c.createGain();
+    o.connect(g);g.connect(c.destination);
+    o.type=type||'sine';o.frequency.value=freq;
+    var t=c.currentTime+(delay||0);
+    g.gain.setValueAtTime(vol||0.14,t);
+    g.gain.exponentialRampToValueAtTime(0.001,t+dur);
+    o.start(t);o.stop(t+dur);
+  }catch(e){}
+}
+function sfxMove(){tone(210,0.045,'square',0.04);}
+function sfxWall(){tone(90,0.06,'square',0.07);}
+function sfxKey(){tone(660,0.1,'sine',0.16);tone(880,0.12,'sine',0.16,0.05);}
+function sfxCoin(){tone(440,0.07,'sine',0.12);tone(550,0.09,'sine',0.12,0.04);}
+function sfxDamage(){tone(140,0.22,'sawtooth',0.18);}
+function sfxTrap(){tone(320,0.1,'sawtooth',0.18);tone(190,0.2,'sawtooth',0.22,0.1);}
+function sfxDie(){tone(210,0.13,'sawtooth',0.18);tone(170,0.13,'sawtooth',0.2,0.15);tone(110,0.28,'sawtooth',0.25,0.3);}
+function sfxLevelUp(){[440,554,659,880].forEach(function(f,i){tone(f,0.14,'sine',0.18,i*0.08);});}
+function sfxExit(){tone(660,0.1,'triangle',0.18);tone(660,0.1,'triangle',0.18,0.1);tone(880,0.18,'triangle',0.2,0.2);}
+
+// ── Constants ──────────────────────────────────
+var COLS=10,ROWS=10;
+var WALL=1,FLOOR=0;
+var T_EMPTY=0,T_KEY=1,T_COIN=2,T_TRAP=3,T_TRAP_R=4,T_EXIT=5;
+
+// ── Game State ─────────────────────────────────
+var G={};
+function initG(){
+  G={
+    level:1,hp:3,maxHp:3,keys:0,coins:0,
+    score:0,moveN:0,phase:'menu',
+    grid:[],items:[],enemies:[],
+    px:0,py:0,
+    tStart:Date.now(),gStart:Date.now(),
+    deathMsg:'',timerOn:false,
+    intCount:0,enemySpeed:2
+  };
+}
+
+// ── Dungeon Generation ────────────────────────
+function shuffle(a){for(var i=a.length-1;i>0;i--){var j=Math.floor(Math.random()*(i+1));var t=a[i];a[i]=a[j];a[j]=t;}return a;}
+
+function reachable(grid,x1,y1,x2,y2){
+  var v=[],q=[],found=false;
+  for(var r=0;r<ROWS;r++){v[r]=[];for(var c=0;c<COLS;c++)v[r][c]=false;}
+  q.push([x1,y1]);v[y1][x1]=true;
+  while(q.length){
+    var p=q.shift(),x=p[0],y=p[1];
+    if(x===x2&&y===y2){found=true;break;}
+    var dirs=[[-1,0],[1,0],[0,-1],[0,1]];
+    for(var d=0;d<4;d++){
+      var nx=x+dirs[d][0],ny=y+dirs[d][1];
+      if(nx>=0&&nx<COLS&&ny>=0&&ny<ROWS&&!v[ny][nx]&&grid[ny][nx]===FLOOR){
+        v[ny][nx]=true;q.push([nx,ny]);
+      }
+    }
   }
+  return found;
 }
-function closeInterstitialAd() {
-  document.getElementById('ad-interstitial').style.display = 'none';
+
+function bfsPath(grid,sx,sy,tx,ty){
+  if(sx===tx&&sy===ty)return[[sx,sy]];
+  var v=[],prev=[],q=[];
+  for(var r=0;r<ROWS;r++){v[r]=[];prev[r]=[];for(var c=0;c<COLS;c++){v[r][c]=false;prev[r][c]=null;}}
+  q.push([sx,sy]);v[sy][sx]=true;
+  var found=false;
+  while(q.length&&!found){
+    var p=q.shift(),x=p[0],y=p[1];
+    var dirs=[[-1,0],[1,0],[0,-1],[0,1]];
+    for(var d=0;d<4;d++){
+      var nx=x+dirs[d][0],ny=y+dirs[d][1];
+      if(nx>=0&&nx<COLS&&ny>=0&&ny<ROWS&&!v[ny][nx]&&grid[ny][nx]===FLOOR){
+        v[ny][nx]=true;prev[ny][nx]=[x,y];q.push([nx,ny]);
+        if(nx===tx&&ny===ty){found=true;break;}
+      }
+    }
+  }
+  if(!found)return null;
+  var path=[],cx=tx,cy=ty;
+  while(cx!==sx||cy!==sy){path.unshift([cx,cy]);var pp=prev[cy][cx];cx=pp[0];cy=pp[1];}
+  path.unshift([sx,sy]);
+  return path;
 }
-</script>
 
-<script>
-let player,floor,roomNum,totalRooms,enemiesKilled,goldCollected;
+function makeDungeon(lvl){
+  var wallChance=Math.max(0.15,0.38-lvl*0.02);
+  var grid,tries=0,ok=false;
+  while(!ok&&tries<60){
+    tries++;
+    grid=[];
+    for(var y=0;y<ROWS;y++){
+      grid[y]=[];
+      for(var x=0;x<COLS;x++){
+        if((x===0&&y===0)||(x===COLS-1&&y===ROWS-1))grid[y][x]=FLOOR;
+        else grid[y][x]=Math.random()<wallChance?WALL:FLOOR;
+      }
+    }
+    ok=reachable(grid,0,0,COLS-1,ROWS-1);
+  }
+  if(!ok){
+    for(var x=0;x<COLS;x++)grid[0][x]=FLOOR;
+    for(var y=0;y<ROWS;y++)grid[y][COLS-1]=FLOOR;
+  }
+  var items=[];
+  for(var y=0;y<ROWS;y++){items[y]=[];for(var x=0;x<COLS;x++)items[y][x]=T_EMPTY;}
+  items[ROWS-1][COLS-1]=T_EXIT;
+  var avail=[];
+  for(var y=0;y<ROWS;y++)
+    for(var x=0;x<COLS;x++)
+      if(grid[y][x]===FLOOR&&items[y][x]===T_EMPTY&&!(x===0&&y===0)&&!(x===COLS-1&&y===ROWS-1))
+        avail.push([x,y]);
+  shuffle(avail);
+  var ai=0;
+  for(var k=0;k<3&&ai<avail.length;k++,ai++)items[avail[ai][1]][avail[ai][0]]=T_KEY;
+  var nc=4+lvl; for(var c=0;c<nc&&ai<avail.length;c++,ai++)items[avail[ai][1]][avail[ai][0]]=T_COIN;
+  var nt=1+lvl; for(var t=0;t<nt&&ai<avail.length;t++,ai++)items[avail[ai][1]][avail[ai][0]]=T_TRAP;
+  return{grid:grid,items:items};
+}
 
-const ENEMIES=[
-  {name:'Slime',icon:'🟢',hp:8,atk:2,gold:5,floors:[1,2]},
-  {name:'Rat Swarm',icon:'🐀',hp:6,atk:3,gold:4,floors:[1,2]},
-  {name:'Skeleton',icon:'💀',hp:12,atk:4,gold:8,floors:[1,2,3]},
-  {name:'Dark Bat',icon:'🦇',hp:10,atk:3,gold:6,floors:[1,2,3]},
-  {name:'Goblin',icon:'👺',hp:15,atk:5,gold:10,floors:[2,3,4]},
-  {name:'Spider Queen',icon:'🕷️',hp:18,atk:6,gold:12,floors:[2,3,4]},
-  {name:'Fire Elemental',icon:'🔥',hp:20,atk:7,gold:15,floors:[3,4,5]},
-  {name:'Shadow Knight',icon:'⚔️',hp:25,atk:8,gold:18,floors:[3,4,5]},
-  {name:'Frost Giant',icon:'🧊',hp:30,atk:9,gold:20,floors:[4,5]},
-  {name:'Demon Lord',icon:'👿',hp:40,atk:12,gold:30,floors:[5]},
-  {name:'Dragon',icon:'🐉',hp:50,atk:15,gold:50,floors:[5]},
-];
+function buildLevel(lvl){
+  G.keys=0;G.coins=0;G.moveN=0;G.tStart=Date.now();G.timerOn=false;
+  var d=makeDungeon(lvl);G.grid=d.grid;G.items=d.items;
+  G.px=0;G.py=0;G.items[0][0]=T_EMPTY;
+  var ne=Math.min(1+Math.floor((lvl-1)/3),4);
+  G.enemies=[];
+  var fl=[];
+  for(var y=0;y<ROWS;y++)
+    for(var x=0;x<COLS;x++)
+      if(G.grid[y][x]===FLOOR&&G.items[y][x]===T_EMPTY&&!(x===0&&y===0)&&!(x===COLS-1&&y===ROWS-1)&&(x+y>3))
+        fl.push([x,y]);
+  shuffle(fl);
+  for(var i=0;i<ne&&i<fl.length;i++){
+    var ex=fl[i][0],ey=fl[i][1];
+    var patrol=makePatrol(G.grid,ex,ey);
+    G.enemies.push({x:ex,y:ey,path:patrol,pi:0});
+  }
+  G.enemySpeed=Math.max(1,3-Math.floor(lvl/4));
+}
 
-const LOOT=[
-  {name:'Rusty Sword',desc:'+1 Attack',effect:p=>{p.atk+=1},floors:[1,2]},
-  {name:'Leather Shield',desc:'+1 Defense',effect:p=>{p.def+=1},floors:[1,2]},
-  {name:'Health Potion',desc:'Heal 10 HP',effect:p=>{p.hp=Math.min(p.maxHp,p.hp+10)},floors:[1,2,3]},
-  {name:'Iron Blade',desc:'+2 Attack',effect:p=>{p.atk+=2},floors:[2,3,4]},
-  {name:'Steel Armor',desc:'+2 Defense',effect:p=>{p.def+=2},floors:[2,3,4]},
-  {name:'Big Health Potion',desc:'Heal 20 HP',effect:p=>{p.hp=Math.min(p.maxHp,p.hp+20)},floors:[3,4,5]},
-  {name:'Heart Crystal',desc:'+10 Max HP',effect:p=>{p.maxHp+=10;p.hp+=10},floors:[2,3,4,5]},
-  {name:'Thunder Blade',desc:'+4 Attack',effect:p=>{p.atk+=4},floors:[4,5]},
-  {name:'Dragon Shield',desc:'+3 Defense',effect:p=>{p.def+=3},floors:[4,5]},
-  {name:'Phoenix Feather',desc:'Full Heal + 5 Max HP',effect:p=>{p.maxHp+=5;p.hp=p.maxHp},floors:[5]},
-];
+function makePatrol(grid,sx,sy){
+  var cands=[];
+  for(var y=0;y<ROWS;y++)
+    for(var x=0;x<COLS;x++){
+      var d=Math.abs(x-sx)+Math.abs(y-sy);
+      if(grid[y][x]===FLOOR&&d>=2&&d<=6&&!(x===0&&y===0)&&!(x===COLS-1&&y===ROWS-1))
+        cands.push([x,y]);
+    }
+  if(!cands.length)return[[sx,sy]];
+  var dest=cands[Math.floor(Math.random()*cands.length)];
+  var fwd=bfsPath(grid,sx,sy,dest[0],dest[1]);
+  if(!fwd||fwd.length<2)return[[sx,sy]];
+  var bwd=fwd.slice().reverse();
+  return fwd.concat(bwd.slice(1));
+}
 
-function showScreen(id){document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));document.getElementById(id).classList.add('active')}
-
-function startRun(){
-  player={hp:20,maxHp:20,atk:3,def:1,gold:0};
-  floor=1;roomNum=0;totalRooms=0;enemiesKilled=0;goldCollected=0;
-  showScreen('game');
-  enterRoom();
+// ── Rendering ─────────────────────────────────
+function render(){
+  var html='',y,x,cls,txt,enemy;
+  for(y=0;y<ROWS;y++){
+    for(x=0;x<COLS;x++){
+      cls='cell ';txt='';
+      if(G.grid[y][x]===WALL){cls+='c-wall';txt='⬛';}
+      else if(x===G.px&&y===G.py){cls+='c-player';txt='🧙';}
+      else{
+        enemy=null;
+        for(var ei=0;ei<G.enemies.length;ei++){if(G.enemies[ei].x===x&&G.enemies[ei].y===y){enemy=G.enemies[ei];break;}}
+        if(enemy){cls+='c-enemy';txt='💀';}
+        else{
+          var it=G.items[y][x];
+          if(it===T_EXIT){if(G.keys>=3){cls+='c-exit';txt='🚪';}else{cls+='c-exit-locked';txt='🔒';}}
+          else if(it===T_KEY){cls+='c-key';txt='🗝️';}
+          else if(it===T_COIN){cls+='c-coin';txt='💰';}
+          else if(it===T_TRAP){cls+='c-trap-h';txt='⬜';}
+          else if(it===T_TRAP_R){cls+='c-trap-r';txt='⚠️';}
+          else{cls+='c-floor';txt='⬜';}
+        }
+      }
+      html+='<div class="'+cls+'">'+txt+'</div>';
+    }
+  }
+  document.getElementById('dungeon').innerHTML=html;
+  updateHUD();
 }
 
 function updateHUD(){
-  document.getElementById('hp').textContent=player.hp;
-  document.getElementById('maxhp').textContent=player.maxHp;
-  document.getElementById('atk').textContent=player.atk;
-  document.getElementById('def').textContent=player.def;
-  document.getElementById('gold').textContent=player.gold;
-  const pct=Math.max(0,player.hp/player.maxHp*100);
-  const bar=document.getElementById('hp-bar');
-  bar.style.width=pct+'%';
-  bar.style.background=pct>50?'#00ff88':pct>25?'#ffcc00':'#ff6b6b';
+  var h='';for(var i=0;i<G.maxHp;i++)h+=i<G.hp?'❤️':'🖤';
+  document.getElementById('hud-hp').textContent=h;
+  document.getElementById('hud-keys').textContent=G.keys;
+  document.getElementById('hud-coins').textContent=G.coins;
+  document.getElementById('hud-score').textContent=G.score;
+  document.getElementById('hud-level').textContent=G.level;
 }
 
-function enterRoom(){
-  roomNum++;totalRooms++;
-  if(roomNum>4){
-    if(floor>=5){winGame();return}
-    floor++;roomNum=1;
-    showFloorTransition();return;
+// ── Timer ─────────────────────────────────────
+function startTimer(){
+  if(G.timerOn)return;
+  G.timerOn=true;
+  (function tick(){
+    if(G.phase!=='playing'){return;}
+    var el=Math.floor((Date.now()-G.tStart)/1000);
+    document.getElementById('hud-time').textContent=Math.floor(el/60)+':'+(el%60<10?'0':'')+(el%60);
+    requestAnimationFrame(tick);
+  })();
+}
+
+// ── Toast ─────────────────────────────────────
+var _toastTimer;
+function toast(msg,col){
+  var el=document.getElementById('toast');
+  el.textContent=msg;el.style.color=col||'#e8e0d0';
+  el.classList.add('show');
+  clearTimeout(_toastTimer);
+  _toastTimer=setTimeout(function(){el.classList.remove('show');},1800);
+}
+
+// ── Player Movement ───────────────────────────
+function movePlayer(dx,dy){
+  if(G.phase!=='playing')return;
+  var nx=G.px+dx,ny=G.py+dy;
+  if(nx<0||nx>=COLS||ny<0||ny>=ROWS)return;
+  if(G.grid[ny][nx]===WALL){sfxWall();return;}
+  // enemy on target?
+  for(var ei=0;ei<G.enemies.length;ei++){
+    if(G.enemies[ei].x===nx&&G.enemies[ei].y===ny){hurt(1,'💀 A guard blocked your path!');render();return;}
   }
-  // Room types: fight(50%), loot(25%), rest(15%), shop(10%)
-  const roll=Math.random();
-  if(roomNum===4)generateFight(true); // Boss room
-  else if(roll<0.5)generateFight(false);
-  else if(roll<0.75)generateLoot();
-  else if(roll<0.9)generateRest();
-  else generateShop();
-  updateHUD();
-}
-
-function showFloorTransition(){
-  const room=document.getElementById('room');
-  room.innerHTML=`
-    <div class="floor-label">FLOOR ${floor-1} CLEARED</div>
-    <div class="room-icon">🏰</div>
-    <div class="room-title">Descending to Floor ${floor}...</div>
-    <div class="room-desc">Enemies grow stronger. Rewards grow richer.</div>
-    <div class="choices"><button class="choice" onclick="enterRoom()">⬇️ Continue Descent</button></div>`;
-  updateHUD();
-}
-
-function getEnemyForFloor(boss){
-  const pool=ENEMIES.filter(e=>e.floors.includes(floor));
-  if(boss){
-    // Pick strongest available
-    pool.sort((a,b)=>b.hp-a.hp);
-    const e={...pool[0]};
-    e.name='⭐ '+e.name+' (Boss)';
-    e.hp=Math.ceil(e.hp*1.5);e.atk=Math.ceil(e.atk*1.3);e.gold=Math.ceil(e.gold*2);
-    return e;
+  G.px=nx;G.py=ny;G.moveN++;
+  sfxMove();
+  var it=G.items[ny][nx];
+  if(it===T_KEY){G.keys++;G.items[ny][nx]=T_EMPTY;sfxKey();toast('🗝️ Key! ('+G.keys+'/3)');}
+  else if(it===T_COIN){var v=G.level*10;G.coins++;G.score+=v;G.items[ny][nx]=T_EMPTY;sfxCoin();toast('💰 +'+v+' pts');}
+  else if(it===T_TRAP){G.items[ny][nx]=T_TRAP_R;sfxTrap();hurt(1,'⚠️ Trap! −1 HP');}
+  else if(it===T_TRAP_R){sfxTrap();hurt(1,'⚠️ Trap again! −1 HP');}
+  else if(it===T_EXIT){
+    if(G.keys>=3){sfxExit();levelDone();return;}
+    else{toast('🔒 Need '+(3-G.keys)+' more key'+(3-G.keys>1?'s':'')+'!','#ff8800');}
   }
-  return{...pool[Math.floor(Math.random()*pool.length)]};
+  if(G.phase==='playing'&&G.moveN%G.enemySpeed===0)moveEnemies();
+  if(G.phase==='playing'){render();startTimer();}
 }
 
-function generateFight(boss){
-  const enemy=getEnemyForFloor(boss);
-  const room=document.getElementById('room');
-  room.innerHTML=`
-    <div class="floor-label">Floor ${floor} — Room ${roomNum}</div>
-    <div class="room-icon">${enemy.icon}</div>
-    <div class="enemy-card">
-      <div class="enemy-name">${enemy.name}</div>
-      <div class="enemy-hp">HP: <span id="enemy-hp">${enemy.hp}</span>/${enemy.hp} — ATK: ${enemy.atk}</div>
-    </div>
-    <div class="log" id="battle-log">A wild ${enemy.name} appears!</div>
-    <div class="choices" id="fight-choices">
-      <button class="choice attack" onclick="doAttack()">⚔️ Attack</button>
-      <button class="choice heal" onclick="doHeal()">🧪 Heal (5 HP)</button>
-      ${!boss?'<button class="choice flee" onclick="doFlee()">🏃 Flee</button>':''}
-    </div>`;
-  window._enemy=enemy;
-}
-
-function doAttack(){
-  const e=window._enemy;
-  const pDmg=Math.max(1,player.atk-Math.floor(Math.random()*2));
-  const crit=Math.random()<0.15;
-  const actualDmg=crit?pDmg*2:pDmg;
-  e.hp-=actualDmg;
-  let log=crit?`💥 CRITICAL HIT! You deal ${actualDmg} damage!`:`You strike for ${actualDmg} damage.`;
-  if(e.hp<=0){
-    enemiesKilled++;player.gold+=e.gold;goldCollected+=e.gold;
-    log+=` ${e.name} defeated! +${e.gold} gold 💰`;
-    document.getElementById('battle-log').textContent=log;
-    document.getElementById('enemy-hp').textContent='0';
-    document.getElementById('fight-choices').innerHTML='<button class="choice" onclick="enterRoom()">➡️ Next Room</button>';
-    updateHUD();return;
-  }
-  // Enemy attacks back
-  const eDmg=Math.max(1,e.atk-player.def);
-  player.hp-=eDmg;
-  log+=` Enemy hits you for ${eDmg}!`;
-  document.getElementById('enemy-hp').textContent=Math.max(0,e.hp);
-  document.getElementById('battle-log').textContent=log;
+function hurt(amt,msg){
+  G.hp-=amt;
+  toast(msg,'#ff5555');
+  sfxDamage();
+  var gw=document.getElementById('game-wrap');
+  gw.classList.add('dmg');setTimeout(function(){gw.classList.remove('dmg');},400);
+  if(G.hp<=0){G.hp=0;G.phase='dead';G.deathMsg=msg;setTimeout(showDead,700);}
   updateHUD();
-  if(player.hp<=0){die();return}
 }
 
-function doHeal(){
-  const e=window._enemy;
-  const heal=Math.min(5,player.maxHp-player.hp);
-  player.hp+=heal;
-  let log=`You heal ${heal} HP.`;
-  const eDmg=Math.max(1,e.atk-player.def);
-  player.hp-=eDmg;
-  log+=` Enemy hits you for ${eDmg}!`;
-  document.getElementById('battle-log').textContent=log;
-  updateHUD();
-  if(player.hp<=0){die();return}
-}
-
-function doFlee(){
-  if(Math.random()<0.6){
-    document.getElementById('battle-log').textContent='You flee successfully! 🏃';
-    document.getElementById('fight-choices').innerHTML='<button class="choice" onclick="enterRoom()">➡️ Next Room</button>';
-  }else{
-    const e=window._enemy;
-    const eDmg=Math.max(1,e.atk-player.def);
-    player.hp-=eDmg;
-    document.getElementById('battle-log').textContent=`Failed to flee! Enemy hits you for ${eDmg}!`;
-    updateHUD();
-    if(player.hp<=0)die();
+// ── Enemies ───────────────────────────────────
+function moveEnemies(){
+  for(var ei=0;ei<G.enemies.length;ei++){
+    var e=G.enemies[ei];
+    if(!e.path||e.path.length<2)continue;
+    e.pi=(e.pi+1)%e.path.length;
+    var np=e.path[e.pi];
+    // don't stack on other enemies
+    var blocked=false;
+    for(var ej=0;ej<G.enemies.length;ej++){
+      if(ej!==ei&&G.enemies[ej].x===np[0]&&G.enemies[ej].y===np[1]){blocked=true;break;}
+    }
+    if(!blocked){
+      e.x=np[0];e.y=np[1];
+      if(e.x===G.px&&e.y===G.py)hurt(1,'💀 A guard caught you!');
+    }
   }
 }
 
-function generateLoot(){
-  const pool=LOOT.filter(l=>l.floors.includes(floor));
-  const items=[pool[Math.floor(Math.random()*pool.length)],pool[Math.floor(Math.random()*pool.length)]];
-  const room=document.getElementById('room');
-  room.innerHTML=`
-    <div class="floor-label">Floor ${floor} — Room ${roomNum}</div>
-    <div class="room-icon">🎁</div>
-    <div class="room-title">Treasure Room!</div>
-    <div class="room-desc">Choose one item:</div>
-    <div class="choices" id="loot-choices">${items.map((item,i)=>
-      `<button class="choice" onclick="takeLoot(${i})"><div class="loot-name">${item.name}</div><div class="loot-desc">${item.desc}</div></button>`
-    ).join('')}</div>`;
-  window._lootItems=items;
+// ── Level Complete ────────────────────────────
+function levelDone(){
+  G.phase='level_done';G.timerOn=false;
+  var elapsed=Math.floor((Date.now()-G.tStart)/1000);
+  var tb=Math.max(0,(300-elapsed)*G.level);
+  var hb=G.hp*50*G.level;
+  G.score+=tb+hb;
+  sfxLevelUp();
+  if(G.level>=10){showWin();return;}
+  document.getElementById('lc-msg').textContent='Level '+G.level+' complete!';
+  document.getElementById('lc-stats').innerHTML=
+    '<div class="stat-box"><div class="sv">'+tb+'</div><div class="sl">Time Bonus</div></div>'+
+    '<div class="stat-box"><div class="sv">'+hb+'</div><div class="sl">HP Bonus</div></div>'+
+    '<div class="stat-box"><div class="sv">'+G.score+'</div><div class="sl">Score</div></div>';
+  document.getElementById('btn-next').textContent='➡️ Level '+(G.level+1);
+  showOnly('ov-level');
+  G.intCount++;
+  if(G.intCount%3===0)setTimeout(function(){document.getElementById('interstitial').style.display='flex';},700);
 }
 
-function takeLoot(idx){
-  const item=window._lootItems[idx];
-  item.effect(player);
-  const room=document.getElementById('room');
-  room.innerHTML=`
-    <div class="room-icon">✨</div>
-    <div class="room-title">Acquired: ${item.name}</div>
-    <div class="room-desc">${item.desc}</div>
-    <div class="choices"><button class="choice" onclick="enterRoom()">➡️ Next Room</button></div>`;
-  updateHUD();
+function nextLevel(){
+  G.level++;
+  buildLevel(G.level);
+  showOnly(null);
+  document.getElementById('hud').classList.add('show');
+  document.getElementById('game-wrap').classList.add('show');
+  G.phase='playing';G.timerOn=false;
+  render();
+  banner('⚡ Level '+G.level);
 }
 
-function generateRest(){
-  const heal=Math.ceil(player.maxHp*0.3);
-  const room=document.getElementById('room');
-  room.innerHTML=`
-    <div class="floor-label">Floor ${floor} — Room ${roomNum}</div>
-    <div class="room-icon">🏕️</div>
-    <div class="room-title">Campfire Rest</div>
-    <div class="room-desc">A warm fire flickers in the darkness.</div>
-    <div class="choices">
-      <button class="choice heal" onclick="doRest(${heal})">🔥 Rest (+${heal} HP)</button>
-      <button class="choice" onclick="doSharpen()">⚔️ Sharpen Blade (+1 ATK)</button>
-    </div>`;
+// ── Win ───────────────────────────────────────
+function showWin(){
+  var el=Math.floor((Date.now()-G.gStart)/1000);
+  saveHS(G.score);
+  document.getElementById('win-stats').innerHTML=
+    '<div class="stat-box"><div class="sv">'+G.score+'</div><div class="sl">Final Score</div></div>'+
+    '<div class="stat-box"><div class="sv">'+Math.floor(el/60)+':'+(el%60<10?'0':'')+(el%60)+'</div><div class="sl">Time</div></div>'+
+    '<div class="stat-box"><div class="sv">'+getHS()+'</div><div class="sl">High Score</div></div>';
+  showOnly('ov-win');
 }
 
-function doRest(heal){
-  player.hp=Math.min(player.maxHp,player.hp+heal);
-  updateHUD();
-  document.getElementById('room').innerHTML=`
-    <div class="room-icon">💤</div>
-    <div class="room-title">Well Rested</div>
-    <div class="room-desc">You feel refreshed. +${heal} HP</div>
-    <div class="choices"><button class="choice" onclick="enterRoom()">➡️ Next Room</button></div>`;
+// ── Dead ──────────────────────────────────────
+function showDead(){
+  sfxDie();saveHS(G.score);
+  document.getElementById('dead-msg').textContent=G.deathMsg||'You were slain in the dungeon.';
+  document.getElementById('dead-stats').innerHTML=
+    '<div class="stat-box"><div class="sv">L'+G.level+'</div><div class="sl">Reached</div></div>'+
+    '<div class="stat-box"><div class="sv">'+G.score+'</div><div class="sl">Score</div></div>'+
+    '<div class="stat-box"><div class="sv">'+getHS()+'</div><div class="sl">Best</div></div>';
+  showOnly('ov-dead');
+  G.intCount++;
+  if(G.intCount%2===0)setTimeout(function(){document.getElementById('interstitial').style.display='flex';},800);
 }
 
-function doSharpen(){
-  player.atk+=1;updateHUD();
-  document.getElementById('room').innerHTML=`
-    <div class="room-icon">⚔️</div>
-    <div class="room-title">Blade Sharpened</div>
-    <div class="room-desc">Your weapon gleams. +1 Attack</div>
-    <div class="choices"><button class="choice" onclick="enterRoom()">➡️ Next Room</button></div>`;
+// ── Start ─────────────────────────────────────
+function startGame(){
+  initG();buildLevel(1);
+  showOnly(null);
+  document.getElementById('hud').classList.add('show');
+  document.getElementById('game-wrap').classList.add('show');
+  G.phase='playing';G.gStart=Date.now();G.tStart=Date.now();
+  render();
+  banner('⚡ Level 1');
 }
 
-function generateShop(){
-  const items=LOOT.filter(l=>l.floors.includes(floor)).slice(0,3);
-  const prices=items.map(()=>5+floor*3+Math.floor(Math.random()*5));
-  const room=document.getElementById('room');
-  room.innerHTML=`
-    <div class="floor-label">Floor ${floor} — Room ${roomNum}</div>
-    <div class="room-icon">🏪</div>
-    <div class="room-title">Merchant</div>
-    <div class="room-desc">"What'll it be, adventurer?"</div>
-    <div class="choices" id="shop-items">${items.map((item,i)=>
-      `<button class="choice" onclick="buyItem(${i})" ${player.gold<prices[i]?'style="opacity:0.4"':''}><div class="loot-name">${item.name} — ${prices[i]}💰</div><div class="loot-desc">${item.desc}</div></button>`
-    ).join('')}
-    <button class="choice flee" onclick="enterRoom()">🚪 Leave Shop</button></div>`;
-  window._shopItems=items;
-  window._shopPrices=prices;
+function showMenu(){
+  showOnly('screen-menu');
+  document.getElementById('hud').classList.remove('show');
+  document.getElementById('game-wrap').classList.remove('show');
+  document.getElementById('hs-menu').textContent=getHS();
+  G.phase='menu';
 }
 
-function buyItem(idx){
-  const item=window._shopItems[idx];
-  const price=window._shopPrices[idx];
-  if(player.gold<price)return;
-  player.gold-=price;
-  item.effect(player);
-  updateHUD();
-  document.getElementById('room').innerHTML=`
-    <div class="room-icon">💎</div>
-    <div class="room-title">Purchased: ${item.name}</div>
-    <div class="room-desc">${item.desc}</div>
-    <div class="choices"><button class="choice" onclick="enterRoom()">➡️ Next Room</button></div>`;
+function showHelp(){document.getElementById('ov-help').classList.add('active');}
+function closeHelp(){document.getElementById('ov-help').classList.remove('active');}
+function closeAd(){document.getElementById('interstitial').style.display='none';}
+
+// ── showOnly helper ───────────────────────────
+function showOnly(id){
+  var screens=['screen-menu','ov-dead','ov-level','ov-win','ov-help'];
+  screens.forEach(function(s){
+    var el=document.getElementById(s);
+    if(el){el.classList.remove('active');}
+  });
+  document.getElementById('hud').classList.remove('show');
+  document.getElementById('game-wrap').classList.remove('show');
+  if(id){
+    var el=document.getElementById(id);
+    if(el){el.classList.add('active');}
+  }
 }
 
-function die(){
-  if(window.jbShowInterstitial)jbShowInterstitial();
-  setTimeout(function(){if(window.jbShareScore)jbShareScore(goldCollected)},2000);
-  document.getElementById('d-stats').textContent=`Floor ${floor} Room ${roomNum} | ${enemiesKilled} kills | ${goldCollected} gold earned | ${totalRooms} rooms explored`;
-  showScreen('death');
+// ── Level Banner ──────────────────────────────
+function banner(txt){
+  var b=document.getElementById('lvl-banner');
+  b.textContent=txt;b.classList.add('show');
+  setTimeout(function(){b.classList.remove('show');},1600);
 }
 
-function winGame(){
-  if(window.jbShowInterstitial)jbShowInterstitial();
-  setTimeout(function(){if(window.jbShareScore)jbShareScore(goldCollected)},2000);
-  document.getElementById('v-stats').textContent=`${enemiesKilled} enemies slain | ${goldCollected} gold earned | ${totalRooms} rooms explored | ${player.hp}/${player.maxHp} HP remaining`;
-  showScreen('victory');
+// ── Share ─────────────────────────────────────
+function shareGame(){
+  var url=window.location.href.split('?')[0];
+  if(navigator.share){navigator.share({title:'Dungeon Bolt',text:'Playing Dungeon Bolt on JellyBolt Games! ⚡🗝️',url:url}).catch(function(){});}
+  else if(navigator.clipboard){navigator.clipboard.writeText(url).then(function(){toast('🔗 Link copied!');}).catch(function(){toast('🔗 '+url);});}
+  else{toast('🔗 '+url);}
 }
+
+// ── High Score ────────────────────────────────
+function getHS(){return parseInt(localStorage.getItem('db_highscore')||'0');}
+function saveHS(s){if(s>getHS())localStorage.setItem('db_highscore',String(s));}
+
+// ── Keyboard Input ────────────────────────────
+document.addEventListener('keydown',function(e){
+  if(['ArrowUp','ArrowDown','ArrowLeft','ArrowRight','w','a','s','d','W','A','S','D'].indexOf(e.key)>=0)e.preventDefault();
+  if(G.phase!=='playing')return;
+  var map={'ArrowUp':[0,-1],'w':[0,-1],'W':[0,-1],'ArrowDown':[0,1],'s':[0,1],'S':[0,1],'ArrowLeft':[-1,0],'a':[-1,0],'A':[-1,0],'ArrowRight':[1,0],'d':[1,0],'D':[1,0]};
+  if(map[e.key])movePlayer(map[e.key][0],map[e.key][1]);
+});
+
+// ── Touch / Swipe ─────────────────────────────
+var _ts=null;
+document.addEventListener('touchstart',function(e){
+  if(e.target.closest&&e.target.closest('#jb-bar,button,.btn,.overlay .btn'))return;
+  _ts={x:e.touches[0].clientX,y:e.touches[0].clientY};
+},{passive:true});
+document.addEventListener('touchend',function(e){
+  if(!_ts||G.phase!=='playing')return;
+  var dx=e.changedTouches[0].clientX-_ts.x,dy=e.changedTouches[0].clientY-_ts.y;
+  _ts=null;
+  if(Math.abs(dx)<22&&Math.abs(dy)<22)return;
+  if(Math.abs(dx)>Math.abs(dy))movePlayer(dx>0?1:-1,0);
+  else movePlayer(0,dy>0?1:-1);
+},{passive:true});
+
+// ── Init ──────────────────────────────────────
+initG();
+document.getElementById('hs-menu').textContent=getHS();
 </script>
 
-<!-- JellyBolt Ads: Bottom Banner -->
-<div class="jb-ad-banner" id="ad-bottom"><ins class="adsbygoogle" data-ad-client="ca-pub-PLACEHOLDER" data-ad-slot="PLACEHOLDER" style="display:inline-block;width:728px;height:90px"></ins></div>
-
-<!-- JellyBolt Interstitial -->
-<div id="jb-interstitial"><div class="jb-interstitial-box"><p style="color:#aaa;font-size:.8rem">Advertisement</p><div style="width:300px;height:250px;background:#1a1a3a;display:flex;align-items:center;justify-content:center;border-radius:8px;margin:10px auto;color:#555"><ins class="adsbygoogle" data-ad-client="ca-pub-PLACEHOLDER" data-ad-slot="PLACEHOLDER" style="display:inline-block;width:300px;height:250px"></ins></div><button class="jb-interstitial-close" onclick="this.closest('#jb-interstitial').style.display='none'">Continue Playing</button></div></div>
-
-<!-- JellyBolt Monetization Bar -->
-<div class="jb-monetization-bar">
-  <a class="jb-btn-coffee" href="https://buymeacoffee.com/jellyboltgames" target="_blank" rel="noopener">&#9749; Support JellyBolt</a>
-  <a class="jb-btn-games" href="https://jellyboltgames.itch.io" target="_blank" rel="noopener">&#127918; More Games</a>
-  <a class="jb-btn-share" href="#" onclick="JellyBoltAds.shareScore('Dungeon Bolt',window._jbLastScore||0);return false">&#128038; Share Score</a>
-  <a class="jb-btn-share-fb" href="https://www.facebook.com/sharer/sharer.php?u=https://jellyboltgames.itch.io" target="_blank" rel="noopener">&#128216; Share</a>
-  <a class="jb-btn-share-wa" href="https://wa.me/?text=Play%20Dungeon%20Bolt%20at%20https://jellyboltgames.itch.io" target="_blank" rel="noopener">&#128172; WhatsApp</a>
+<!-- AdSense Banner Below HUD -->
+<div style="position:fixed;top:46px;left:0;right:0;text-align:center;background:rgba(8,6,20,.8);z-index:49;pointer-events:none;height:0;overflow:visible">
+  <ins class="adsbygoogle" style="display:inline-block;width:320px;max-width:100%;height:50px" data-ad-client="ca-pub-8350556723025693" data-ad-slot="auto"></ins>
 </div>
-
+<script>(adsbygoogle=window.adsbygoogle||[]).push({});</script>
 <script src="../shared/monetization.js"></script>
 <script src="../shared/ads.js"></script>
-
-<!-- JellyBolt Ad Banner -->
-<div class="jellybolt-ad-banner" style="text-align:center;padding:4px 0;background:#111;">
-  <ins class="adsbygoogle"
-       style="display:inline-block;width:728px;height:90px"
-       data-ad-client="JELLYBOLT_ADSENSE_PUB_ID"
-       data-ad-slot="JELLYBOLT_AD_SLOT_ID"></ins>
-  <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
-</div>
 </body>
 </html>
