@@ -26,7 +26,10 @@ const GAMES=[
 {id:'space-trader',name:'Space Trader',emoji:'🛸',genre:'Trading'},
 {id:'word-rush',name:'Word Rush',emoji:'⌨️',genre:'Typing'},
 {id:'bolt-blocks',name:'Bolt Blocks',emoji:'🧱',genre:'Block Puzzle'},
-{id:'bolt-solitaire',name:'Bolt Solitaire',emoji:'🃏',genre:'Card Game'}
+{id:'bolt-solitaire',name:'Bolt Solitaire',emoji:'🃏',genre:'Card Game'},
+{id:'neon-dash',name:'Neon Dash',emoji:'💨',genre:'Endless Runner'},
+{id:'territory-bolt',name:'Territory Bolt',emoji:'🗺️',genre:'Territory'},
+{id:'bolt-tiles',name:'Bolt Tiles',emoji:'🀄',genre:'Mahjong'}
 ];
 
 /* ── Detect current game ── */

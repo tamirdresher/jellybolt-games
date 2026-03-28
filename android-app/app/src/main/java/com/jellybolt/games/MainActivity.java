@@ -56,6 +56,11 @@ public class MainActivity extends AppCompatActivity {
         {"space-shooter-3d", "Space Shooter 3D", "\uD83D\uDE80", "3D Shooter"},
         {"tower-defense", "Tower Defense", "\uD83C\uDFF0", "Tower Defense"},
         {"zombie-shooter", "Zombie Shooter", "\uD83E\uDDDF", "Shooter"},
+        {"bolt-blocks", "Bolt Blocks", "\uD83E\uDDF1", "Block Puzzle"},
+        {"bolt-solitaire", "Bolt Solitaire", "\uD83C\uDCCF", "Card Game"},
+        {"neon-dash", "Neon Dash", "\uD83D\uDCA8", "Endless Runner"},
+        {"territory-bolt", "Territory Bolt", "\uD83D\uDDFA\uFE0F", "Territory"},
+        {"bolt-tiles", "Bolt Tiles", "\uD83C\uDC04", "Mahjong"},
     };
 
     @Override
