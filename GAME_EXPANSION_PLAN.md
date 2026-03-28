@@ -48,9 +48,151 @@ This roadmap takes us from **3 Play Store apps** to a **full publisher portfolio
 
 ---
 
-## 1. ⚡ Standalone App Expansion — Top 8
+## 1. ⚡ Standalone App Expansion — Top 8 + New Flagship
 
 We're pulling the best games out of the collection and shipping them as standalone Play Store apps. Each one gets its own store listing, screenshots, icon, and Play Store category — built to rank independently.
+
+### 💎 NEW FLAGSHIP — Gem Storm (Match-3 Puzzle)
+
+> **This is the game that will define JellyBolt's DAU numbers.**
+
+| Field | Value |
+|-------|-------|
+| **Title** | **Gem Storm** |
+| **Package** | `com.jellybolt.gemstorm` |
+| **Category** | `GAME_PUZZLE` |
+| **Engine** | Phaser 3 (CDN) — smooth gem animations, particle effects, tweens |
+| **Priority** | 🔴 **HIGHEST** — Phase 2A, parallel with JellyBolt Core SDK |
+| **Estimated size** | ~120 KB game + Phaser CDN |
+
+Match-3 is the #1 casual mobile genre by revenue. Candy Crush alone makes $4M/day. We're not building Candy Crush — we're building a **JellyBolt-flavored match-3** that's lightning-fast, neon-gorgeous, and designed to be played for months.
+
+#### Core Mechanics
+
+**Board:** 8×8 grid of colored gems (6 gem types + special gems)
+
+**Basic play:**
+- Swap two adjacent gems to create a row/column of 3+ matching gems
+- Matched gems explode with neon particle effects, new gems cascade from above
+- Chain reactions (cascades) = massive score multipliers
+
+**Power-up combos (the addiction layer):**
+
+| Combo | Creates | Effect |
+|-------|---------|--------|
+| 4 in a row | ⚡ **Lightning Gem** | Clears entire row OR column (player chooses direction) |
+| 5 in a row | 💎 **Bolt Gem** | Clears ALL gems of one color on the board |
+| L-shape or T-shape | 💥 **Storm Gem** | 3×3 explosion around the gem |
+| 2 special gems swapped | 🌪️ **Mega Storm** | Combines both effects — devastating board clear |
+
+#### Progression System
+
+**100+ Levels** across 10 worlds, each world with a visual theme:
+
+| World | Theme | Visual Style | Levels |
+|-------|-------|-------------|--------|
+| 1 | Neon Caverns | Dark caves, glowing crystals, green (#00ff88) | 1–10 |
+| 2 | Cyber Grid | Tron-style grid, cyan (#58a6ff) | 11–20 |
+| 3 | Magma Core | Lava flows, red/orange | 21–30 |
+| 4 | Frozen Peaks | Ice crystals, white/blue | 31–40 |
+| 5 | Void Storm | Deep space, purple/black | 41–50 |
+| 6 | Golden Temple | Ancient ruins, gold (#ffcc00) | 51–60 |
+| 7 | Toxic Swamp | Radioactive green, bubbling | 61–70 |
+| 8 | Cloud Kingdom | Floating islands, soft pastels | 71–80 |
+| 9 | Shadow Realm | Inverted colors, dark motif | 81–90 |
+| 10 | Bolt Nexus | JellyBolt HQ — all effects combined | 91–100+ |
+
+**Level objectives** (variety keeps it fresh):
+
+| Type | Example |
+|------|---------|
+| Score target | "Score 5,000 points in 30 moves" |
+| Clear gems | "Clear 20 blue gems" |
+| Drop items | "Drop 3 keys to the bottom row" |
+| Break obstacles | "Destroy all ice blocks" |
+| Chain target | "Create 5 cascades in one level" |
+| Boss levels | "Defeat the Void Guardian" (every 10th level) |
+
+**Star ratings:** 1–3 ⚡bolts per level based on score thresholds. Completionists will replay to get 3 bolts on every level.
+
+**Level map:** Scrollable world map (like Candy Crush / Monument Valley) showing progress, locked levels, and boss gates.
+
+#### Lives System
+
+- **5 lives maximum**
+- Lose a life when you fail a level (run out of moves / time)
+- **1 life regenerates every 20 minutes** (not 30 — we're kinder than King)
+- **Watch a rewarded ad** → get 1 bonus life immediately
+- **Spend 50 ⚡coins** → refill all 5 lives
+- **Daily login** → free life refill
+- **No paywall** — you can always play again in 20 minutes, or earn coins through other JellyBolt games
+
+#### Daily & Social Features
+
+- **Daily challenge level:** Unique level every 24h, bonus ⚡coins + XP for completion
+- **Streak bonus:** Play daily → streak multiplier on ⚡coin rewards
+- **Weekly tournament:** Top scorer on a special weekly level gets exclusive cosmetic gem skin
+- **Cross-game integration:** JellyBolt Core SDK — XP, ⚡coins, achievements all shared with other JellyBolt games
+
+#### Visual Design (Phaser 3)
+
+```
+┌──────────────────────────────────┐
+│ ⚡ GEM STORM    ★★★  Lv.23     │  ← Dark header bar
+│ ══════════════════════════════  │
+│ Score: 3,450    Moves: 12      │
+│ ┌──┬──┬──┬──┬──┬──┬──┬──┐     │
+│ │🔴│🔵│🟢│🔴│💎│🟡│🔵│🟢│     │  ← 8×8 gem grid
+│ ├──┼──┼──┼──┼──┼──┼──┼──┤     │     on dark bg
+│ │🟡│🔴│🔵│🟢│🔴│🔵│🟡│🔴│     │
+│ ├──┼──┼──┼──┼──┼──┼──┼──┤     │     Gems glow with
+│ │🔵│🟢│🔴│⚡│🟡│🔴│🔵│🟢│     │     neon outlines
+│ ├──┼──┼──┼──┼──┼──┼──┼──┤     │
+│ │🟢│🔵│🟡│🔴│🔵│🟢│💥│🔴│     │     Special gems
+│ ├──┼──┼──┼──┼──┼──┼──┼──┤     │     pulse with
+│ │🔴│🟡│🔵│🟢│🔴│🟡│🔵│🟢│     │     lightning FX
+│ ├──┼──┼──┼──┼──┼──┼──┼──┤     │
+│ │🔵│🔴│🟢│🔵│🟡│🔴│🟢│🔵│     │
+│ ├──┼──┼──┼──┼──┼──┼──┼──┤     │
+│ │🟡│🟢│🔴│🟡│🔵│🟢│🔴│🟡│     │
+│ ├──┼──┼──┼──┼──┼──┼──┼──┤     │
+│ │🔴│🔵│🟡│🔴│🟢│🔵│🟡│🔴│     │
+│ └──┴──┴──┴──┴──┴──┴──┴──┘     │
+│                                │
+│  ❤️❤️❤️❤️🤍  Lives: 4/5      │  ← Lives bar
+│ ┌────────────────────────────┐ │
+│ │        [ Ad Banner ]       │ │  ← AdMob banner
+│ └────────────────────────────┘ │
+└──────────────────────────────────┘
+```
+
+- Gems: Rounded squares with inner glow, subtle pulsing animation
+- Matches: Neon lightning effect connecting matched gems, then shatter + particles
+- Cascades: Screen-shake, combo counter flies up ("×3!", "×4!", "MEGA!")
+- Special gems: Visible lightning/storm/bolt effects inside the gem
+- Level complete: ⚡ bolt strikes from top, star rating flies in, confetti particles
+- Background: Per-world themed backdrop (caves, grid, lava, etc.) with subtle parallax
+
+#### Monetization (Ethical, Per Revenue Strategy)
+
+| Method | Details |
+|--------|---------|
+| **Rewarded video ads** | Watch ad → +5 moves on a failed level, OR +1 life |
+| **Interstitial ads** | Between levels (max 1 per 3 levels, skippable after 5s) |
+| **Banner ad** | Bottom of screen during gameplay |
+| **Future IAP** (Phase 5) | ⚡coin packs for lives/boosters. Cosmetic gem skins. NO pay-to-win level skips. |
+
+#### Why This Is the #1 Priority
+
+1. **Match-3 = highest DAU genre on mobile.** Users play 5-10 sessions/day.
+2. **Session length sweet spot:** 2-5 minutes per level = perfect for ads between levels.
+3. **100+ levels = months of content** before users run out. Expandable with new worlds.
+4. **Lives system = return visits.** Users come back every 20 min when lives refill.
+5. **Cross-game synergy:** ⚡coins earned in Gem Storm power up ALL JellyBolt games.
+6. **ASO keywords:** "match 3", "puzzle game", "gem puzzle" = massive search volume.
+7. **Phaser 3 engine:** Buttery-smooth animations that make the game FEEL premium.
+
+---
 
 ### 🥇 Tier 1 — Flagships (Ship First)
 
@@ -80,21 +222,21 @@ We're pulling the best games out of the collection and shipping them as standalo
 ```
 ⚡ JellyBolt Games — Play Store Portfolio
 
- LIVE NOW                           NEW — PHASE 1               NEW — PHASE 3
+ LIVE NOW                           NEW — PHASE 1               NEW — PHASE 2A
  ─────────                          ──────────────               ──────────────
- 🎮 JellyBolt Collection            ⚔️ Dungeon Bolt              🧱 Block Storm
- 🧠 BrainRot Quiz Battle            🗡️ Quest RPG                 🔄 Merge Master
- ⚔️ Code Conquest                   🔐 Escape Room               💥 Battle Royale
-                                                                  🏰 Tower Defense
-                                                                  🫧 Bubble Pop
+ 🎮 JellyBolt Collection            ⚔️ Dungeon Bolt              💎 GEM STORM ← FLAGSHIP
+ 🧠 BrainRot Quiz Battle            🗡️ Quest RPG                    (match-3 puzzle)
+ ⚔️ Code Conquest                   🔐 Escape Room
 
- FUTURE — PHASE 4 (New IP)
- ─────────────────────────
- 🏎️ Neon Drift (3D racing)
- ⚡ Phantom Arena (action RPG)
- 🌌 Star Colonies (3D strategy)
+ NEW — PHASE 3                      FUTURE — PHASE 4 (New IP)
+ ──────────────                     ─────────────────────────
+ 🧱 Block Storm                     🏎️ Neon Drift (3D racing)
+ 🔄 Merge Master                    ⚡ Phantom Arena (action RPG)
+ 💥 Battle Royale                   🌌 Star Colonies (3D strategy)
+ 🏰 Tower Defense
+ 🫧 Bubble Pop
 
- Total: 14 apps from one indie studio
+ Total: 15 game apps + 10 utility apps = 25 apps from one publisher
 ```
 
 ---
@@ -480,6 +622,22 @@ Not game-changing individually, but **extremely low effort to maintain** once bu
 - [ ] Roll out to all 40 games
 - [ ] Rebuild and re-upload all AABs with JellyBolt Core
 
+### ⚡ Phase 2A — 💎 Gem Storm Flagship (Week 3–6) `🔴 HIGH PRIORITY`
+
+- [ ] Set up Phaser 3 project structure (`games/gem-storm/`)
+- [ ] Implement 8×8 match-3 board with gem swap + cascade logic
+- [ ] Build power-up system (Lightning, Bolt, Storm, Mega Storm gems)
+- [ ] Design 10 worlds × 10 levels = 100 level definitions (objectives, move limits, star thresholds)
+- [ ] Implement level map UI (scrollable world map with progress)
+- [ ] Lives system (5 lives, 20-min regen, ad refill, coin refill)
+- [ ] Daily challenge level + streak bonus integration (JellyBolt Core)
+- [ ] Neon-dark visual polish: gem glow, particle effects, screen-shake, cascades
+- [ ] AdMob integration (banner + interstitial between levels + rewarded for extra moves)
+- [ ] Create standalone app scaffold (`android-app-gemstorm/`)
+- [ ] Build AAB + store listing
+- [ ] Add to JellyBolt Collection app
+- [ ] Upload to Play Console → fast-track to closed testing
+
 ### ⚡ Phase 3 — Portfolio Expansion (Week 5–6)
 
 - [ ] Create standalone apps: Block Storm, Merge Master, Battle Royale
@@ -587,7 +745,8 @@ cp /path/to/jellybolt-release.keystore .
 | 4 | Dungeon Bolt | `com.jellybolt.dungeonbolt` | 🆕 AAB ready | ✅ Published |
 | 5 | Quest RPG | `com.jellybolt.questrpg` | 🆕 AAB ready | — |
 | 6 | Escape Room | `com.jellybolt.escaperoom` | 🆕 AAB ready | — |
-| 7 | Block Storm | `com.jellybolt.blockstorm` | 📋 Phase 3 | — |
+| 7 | 💎 **Gem Storm** | `com.jellybolt.gemstorm` | 🔴 **Phase 2A** | — |
+| 8 | Block Storm | `com.jellybolt.blockstorm` | 📋 Phase 3 | — |
 | 8 | Merge Master | `com.jellybolt.mergemaster` | 📋 Phase 3 | — |
 | 9 | Battle Royale | `com.jellybolt.battleroyale` | 📋 Phase 3 | — |
 | 10 | Tower Defense | `com.jellybolt.towerdefense` | 📋 Phase 3 | — |
