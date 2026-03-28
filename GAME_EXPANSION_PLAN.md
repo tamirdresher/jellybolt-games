@@ -289,6 +289,228 @@ These use advanced engines while staying true to the JellyBolt aesthetic: neon c
 
 ---
 
+## 2B. 📈 Chart-Inspired Games — Top-Charting Variations
+
+Every game below is **inspired by** a top-charting Play Store title but built as a legally distinct JellyBolt original — different name, different art, different twist. All built in HTML5 Canvas or Phaser 3, running in our proven WebView wrapper.
+
+### Feasibility & Priority Matrix
+
+| # | JellyBolt Title | Inspired By | Engine | Build Effort | Chart Potential | Priority |
+|---|----------------|-------------|--------|-------------|----------------|----------|
+| 1 | **⚡ Bolt Blocks** | Block Blast! | Canvas | 🟢 Low (1–2 days) | ⭐⭐⭐⭐⭐ | 🔴 **P0 — Build immediately** |
+| 2 | **⚡ Bolt Solitaire** | Solitaire | Canvas | 🟢 Low (2–3 days) | ⭐⭐⭐⭐⭐ | 🔴 **P0 — Build immediately** |
+| 3 | **⚡ Bolt Tiles** | Mahjong | Canvas | 🟢 Low (2–3 days) | ⭐⭐⭐⭐ | 🟡 P1 — Ship soon |
+| 4 | **⚡ Bolt Color** | Zen Color | Canvas | 🟢 Low (2–3 days) | ⭐⭐⭐⭐ | 🟡 P1 — Ship soon |
+| 5 | **⚡ Neon Dash** | Subway Surfers | Phaser 3 | 🟡 Medium (5–7 days) | ⭐⭐⭐⭐⭐ | 🟡 P1 — High impact, more effort |
+| 6 | **⚡ Rhythm Bolt** | Geometry Dash | Phaser 3 | 🟡 Medium (5–7 days) | ⭐⭐⭐⭐⭐ | 🟡 P1 — Needs level editor/music |
+| 7 | **⚡ Territory Bolt** | Paper.io 2 | Canvas | 🟡 Medium (3–5 days) | ⭐⭐⭐⭐ | 🟡 P1 — Bot AI needed |
+| 8 | **⚡ Bolt Spinner** | Coin Master | Canvas | 🟡 Medium (4–6 days) | ⭐⭐⭐⭐ | 🟢 P2 — Complex meta-game |
+| 9 | **⚡ Saboteur** | Among Us | Canvas/Phaser | 🔴 High (7–10 days) | ⭐⭐⭐ | 🟢 P2 — AI deduction is hard |
+| 10 | **⚡ Bolt World** | Roblox | Three.js | 🔴 Very High (weeks) | ⭐⭐⭐ | ⚪ P3 — Long-term moonshot |
+
+### 🔴 P0 — Build Immediately (1–3 Day Builds)
+
+#### 1. ⚡ Bolt Blocks
+> *Block puzzle. Fit shapes. Clear rows. One-hand play. Infinite rounds.*
+
+| Field | Value |
+|-------|-------|
+| **Package** | `com.jellybolt.boltblocks` |
+| **Inspired by** | Block Blast! (#1 Puzzle, 100M+ downloads) |
+| **Engine** | Vanilla Canvas |
+| **Build time** | 1–2 days |
+
+**Gameplay:** 10×10 grid. Each turn you get 3 random block shapes (tetrominos, L-shapes, lines). Drag and place them on the grid. When a full row or column is filled, it clears and you score. Game ends when no shapes fit. No time pressure — pure puzzle.
+
+**Why it charts:** Block Blast has 100M+ downloads because the mechanic is dead simple and infinitely replayable. Zero learning curve. Perfect for ad breaks between rounds.
+
+**JellyBolt twist:** Neon ghost-preview of where blocks will land. Combo multiplier for clearing multiple rows at once. ⚡ Lightning effect on clears. Daily challenge: "Clear 20 rows in one game."
+
+---
+
+#### 2. ⚡ Bolt Solitaire
+> *Classic Klondike solitaire. Neon cards. Daily challenges. Streak rewards.*
+
+| Field | Value |
+|-------|-------|
+| **Package** | `com.jellybolt.boltsolitaire` |
+| **Inspired by** | Solitaire (perennial top-10, 500M+ category downloads) |
+| **Engine** | Vanilla Canvas |
+| **Build time** | 2–3 days |
+
+**Gameplay:** Standard Klondike solitaire — 7 tableau columns, draw-1 or draw-3 from stock, build foundation piles A→K by suit. Auto-complete when possible. Undo button. Win tracking + stats.
+
+**Why it charts:** Solitaire is literally the most-played card game in history. It's been in the top-10 since app stores existed. Players play 5-10 games per day. It's a daily habit game.
+
+**JellyBolt twist:** Neon card faces on dark background. ⚡ bolt suit symbols. "Bolt Mode" — timed challenge (solve in 3 minutes for bonus coins). Daily deal: same deck for everyone, compete on speed. Streak rewards tied to JellyBolt Core.
+
+---
+
+### 🟡 P1 — Ship Soon (2–7 Day Builds)
+
+#### 3. ⚡ Bolt Tiles
+> *Mahjong tile matching. Hundreds of layouts. Zen neon. Relaxing but addictive.*
+
+| Field | Value |
+|-------|-------|
+| **Package** | `com.jellybolt.bolttiles` |
+| **Inspired by** | Mahjong (evergreen puzzle, 200M+ category downloads) |
+| **Engine** | Vanilla Canvas |
+| **Build time** | 2–3 days |
+
+**Gameplay:** Classic Mahjong solitaire — match pairs of identical tiles to remove them from the board. Tiles must be "free" (not blocked by adjacent or stacked tiles). 50+ board layouts. Hint system. Shuffle if stuck.
+
+**JellyBolt twist:** Neon-glow tile edges. Tiles have JellyBolt-themed symbols (bolts, gems, circuits, stars). Zen ambient mode with subtle particle backgrounds. Daily layout challenge. "Bolt Match" — match highlighted tiles within 5 seconds for bonus points.
+
+---
+
+#### 4. ⚡ Bolt Color
+> *Color by number. Neon & space themes. Relaxing. Ad-supported zen game.*
+
+| Field | Value |
+|-------|-------|
+| **Package** | `com.jellybolt.boltcolor` |
+| **Inspired by** | Zen Color / Happy Color (50M+ downloads) |
+| **Engine** | Vanilla Canvas |
+| **Build time** | 2–3 days |
+
+**Gameplay:** Tap numbered cells to fill them with the corresponding color. Pinch-to-zoom on large images. Categories: Space, Neon, Animals, Mandala, Pixel Art. New images weekly.
+
+**JellyBolt twist:** Space & neon themed images (rockets, galaxies, circuit boards, gem patterns). Completed images glow with neon outlines. Dark background with neon color palette. "Bolt Rush" mode — race to complete an image against the clock. Share completed art.
+
+**Content pipeline:** Images can be generated programmatically (pixel art grids, mandala patterns) or hand-designed. Start with 30 images, add 5/week.
+
+---
+
+#### 5. ⚡ Neon Dash
+> *Endless runner. Swipe to dodge. Neon city. Power-ups. Daily missions.*
+
+| Field | Value |
+|-------|-------|
+| **Package** | `com.jellybolt.neondash` |
+| **Inspired by** | Subway Surfers (#1 Arcade, 3B+ downloads) |
+| **Engine** | Phaser 3 |
+| **Build time** | 5–7 days |
+
+**Gameplay:** Side-scrolling (or pseudo-3D lane-based) endless runner. Character runs automatically. Swipe left/right to change lanes, up to jump, down to slide. Collect ⚡coins. Dodge obstacles. Power-ups: magnet, shield, score-doubler, mega-jump. Distance = score.
+
+**Why it charts:** Endless runners are the single most-downloaded game category in history. The mechanic is universal — everyone understands "run and dodge."
+
+**JellyBolt twist:** Neon cyberpunk city backdrop. Character leaves a neon trail. Obstacles are glitched data blocks and rogue code. "Bolt Rush" power-up turns everything gold and triples coins for 10 seconds. Daily mission system: "Collect 500 coins", "Run 2000m without dying."
+
+**Phaser 3 usage:** Arcade physics for jumping/sliding, tween-based obstacle spawning, particle trails on the character, parallax scrolling for 3-layer city background.
+
+---
+
+#### 6. ⚡ Rhythm Bolt
+> *Rhythm platformer. Tap to the beat. Neon obstacles synced to music.*
+
+| Field | Value |
+|-------|-------|
+| **Package** | `com.jellybolt.rhythmbolt` |
+| **Inspired by** | Geometry Dash (100M+ downloads) |
+| **Engine** | Phaser 3 |
+| **Build time** | 5–7 days |
+
+**Gameplay:** Auto-scrolling platformer. Character moves forward automatically. Tap to jump, hold to fly (rocket mode), release to drop. Obstacles are synced to the beat of the background music. Die = restart from beginning (or checkpoint in practice mode). 20+ built-in levels with increasing difficulty.
+
+**Why it charts:** Geometry Dash has 100M+ downloads and a fanatical community. The "die and retry" loop is incredibly addictive when paired with music.
+
+**JellyBolt twist:** Neon obstacle course with pulsing colors that match the BPM. ⚡ bolt character with particle trail. "Bolt Mode" sections where speed doubles and the screen flashes. User-created levels via a simple JSON format (future feature).
+
+**Music:** Use royalty-free electronic/synthwave tracks. Start with 10 songs. Web Audio API for beat detection and sync.
+
+---
+
+#### 7. ⚡ Territory Bolt
+> *Claim territory. Draw lines. Don't get cut. Eat the competition.*
+
+| Field | Value |
+|-------|-------|
+| **Package** | `com.jellybolt.territorybolt` |
+| **Inspired by** | Paper.io 2 (100M+ downloads) |
+| **Engine** | Vanilla Canvas |
+| **Build time** | 3–5 days |
+
+**Gameplay:** Top-down arena. You control a small square that moves continuously. You own a colored territory. Move outside your territory to draw a line, then return to claim all enclosed area. But if an opponent (bot) crosses your line before you return, you die. Eat other players' territory. Last one standing — or whoever owns the most territory when time runs out — wins.
+
+**JellyBolt twist:** Neon grid arena on dark background. Your territory glows with your color. Bolt power-up: temporarily become invincible + speed boost. AI bots with personalities (Aggressive, Defensive, Sneaky). Mini-map in corner. "Ranked" mode with bot difficulty scaling based on your win rate.
+
+---
+
+### 🟢 P2 — Queue for Later (4–10 Day Builds)
+
+#### 8. ⚡ Bolt Spinner
+> *Spin the slot machine. Build your base. Raid rivals. Coin economy.*
+
+| Field | Value |
+|-------|-------|
+| **Package** | `com.jellybolt.boltspinner` |
+| **Inspired by** | Coin Master (100M+ downloads, $280M/year revenue) |
+| **Engine** | Canvas + Phaser 3 |
+| **Build time** | 4–6 days |
+
+**Gameplay:** Core loop: spin a 3-reel slot machine. Results determine your action: Coins (build), Shields (defend), Hammers (raid), or Bolts (attack). Use coins to build/upgrade your base (5 structures per level, 50+ levels). Raid bots' bases to steal coins. Shield to protect your own. Progress through themed villages.
+
+**JellyBolt twist:** Slot machine has ⚡bolt symbols instead of coins. Bases are neon-themed space stations. Raid animations show lightning strikes on enemy bases. "Bolt Jackpot" — all 3 reels show ⚡ → massive coin reward + rare item. Daily free spins tied to streak system.
+
+**Note:** Single-player with bots only (no real multiplayer needed). Coin Master's genius is the meta-game loop, not the social features.
+
+---
+
+#### 9. ⚡ Saboteur
+> *Social deduction. Find the traitor. Complete tasks. Vote to eject. Single-player vs AI.*
+
+| Field | Value |
+|-------|-------|
+| **Package** | `com.jellybolt.saboteur` |
+| **Inspired by** | Among Us (500M+ downloads) |
+| **Engine** | Phaser 3 |
+| **Build time** | 7–10 days |
+
+**Gameplay:** You're a crew member on a neon space station. 1 of 6 crew is a saboteur (AI-controlled). Complete mini-tasks (wire puzzles, pattern matching, code entry) while watching for suspicious AI behavior. When a "body" is found, vote on who to eject. Saboteur wins if they eliminate enough crew; crew wins by completing all tasks or ejecting the saboteur.
+
+**JellyBolt twist:** Neon space station with JellyBolt aesthetic. Mini-tasks are JellyBolt-themed puzzles. AI saboteur has behavioral tells that get subtler as difficulty increases. "Bolt Scanner" item reveals one crew member's role. Single-player campaign with 20 scenarios of increasing complexity.
+
+**Feasibility note:** The hard part is convincing AI behavior. Start with scripted scenarios (like a visual novel with choices) rather than truly emergent AI. Still compelling.
+
+---
+
+### ⚪ P3 — Long-Term Moonshot
+
+#### 10. ⚡ Bolt World
+> *Sandbox builder. Voxel construction. Create, explore, share.*
+
+| Field | Value |
+|-------|-------|
+| **Package** | `com.jellybolt.boltworld` |
+| **Inspired by** | Roblox / Minecraft (largest game category by MAU) |
+| **Engine** | Three.js / BabylonJS |
+| **Build time** | Weeks–months (ongoing project) |
+
+**Gameplay:** Simplified voxel sandbox. Place and destroy blocks in a 3D world. Pre-made templates (house, castle, spaceship). Free-build mode. Share creations via screenshot.
+
+**Reality check:** This is a moonshot. A true Roblox competitor is impossible for a small team. But a "Minecraft Creative Mode Lite" in Three.js is feasible. Scope it as a relaxing builder, not a game platform. Start with a 32×32×32 world, basic block types, simple camera controls.
+
+**Phase:** Not on the immediate roadmap. Revisit after the studio has 20+ apps generating revenue.
+
+---
+
+### Chart-Inspired Games — Implementation Order
+
+```
+IMMEDIATE (Phase 3C)         SOON (Phase 4C)              LATER (Phase 5+)
+────────────────────         ────────────────              ────────────────
+⚡ Bolt Blocks (1-2d)        ⚡ Neon Dash (5-7d)           ⚡ Bolt Spinner (4-6d)
+⚡ Bolt Solitaire (2-3d)     ⚡ Rhythm Bolt (5-7d)         ⚡ Saboteur (7-10d)
+⚡ Bolt Tiles (2-3d)         ⚡ Territory Bolt (3-5d)      ⚡ Bolt World (weeks)
+⚡ Bolt Color (2-3d)
+
+Build days: ~10              Build days: ~15               Build days: ~20+
+```
+
+---
+
 ## 3. ⚡ JellyBolt Core — The Addiction Framework
 
 A shared JavaScript module (`games/shared/jellybolt-core.js`) loaded by every game, providing a unified player identity and progression system across the entire JellyBolt ecosystem.
@@ -656,6 +878,15 @@ Not game-changing individually, but **extremely low effort to maintain** once bu
 - [ ] Store listings + neon-dark icons
 - [ ] Upload to Play Console → internal testing
 
+### ⚡ Phase 3C — Chart-Inspired Games Wave 1 (Week 5–7)
+
+- [ ] Build ⚡ Bolt Blocks (Canvas — block puzzle, 1–2 days)
+- [ ] Build ⚡ Bolt Solitaire (Canvas — Klondike solitaire, 2–3 days)
+- [ ] Build ⚡ Bolt Tiles (Canvas — Mahjong solitaire, 2–3 days)
+- [ ] Build ⚡ Bolt Color (Canvas — color by number, 2–3 days)
+- [ ] Standalone apps + store listings for all 4
+- [ ] Add to JellyBolt Collection app
+
 ### ⚡ Phase 4 — Next-Gen Games (Week 7–10)
 
 - [ ] Build Neon Drift (Three.js racing)
@@ -673,6 +904,14 @@ Not game-changing individually, but **extremely low effort to maintain** once bu
 - [ ] AdMob integration + store listings
 - [ ] Upload to Play Console
 
+### ⚡ Phase 4C — Chart-Inspired Games Wave 2 (Week 8–12)
+
+- [ ] Build ⚡ Neon Dash (Phaser 3 — endless runner, 5–7 days)
+- [ ] Build ⚡ Rhythm Bolt (Phaser 3 — rhythm platformer, 5–7 days)
+- [ ] Build ⚡ Territory Bolt (Canvas — territory claim, 3–5 days)
+- [ ] Standalone apps + store listings for all 3
+- [ ] Add to JellyBolt Collection app
+
 ### ⚡ Phase 5 — Growth & Revenue (Week 11+)
 
 - [ ] Firebase leaderboard backend → cloud leaderboards
@@ -682,6 +921,8 @@ Not game-changing individually, but **extremely low effort to maintain** once bu
 - [ ] Play Store ASO optimization (screenshots, A/B test descriptions)
 - [ ] Cross-promote: TechAI Explained → JellyBolt dev logs
 - [ ] Utility apps Wave 3: Bolt WiFi, Bolt Weather, Bolt Files, Bolt Battery
+- [ ] Chart-inspired Wave 3: Bolt Spinner, Saboteur
+- [ ] Bolt World sandbox prototype (Three.js moonshot)
 
 ---
 
@@ -754,17 +995,28 @@ cp /path/to/jellybolt-release.keystore .
 | 12 | Neon Drift | `com.jellybolt.neondrift` | 📋 Phase 4 | — |
 | 13 | Phantom Arena | `com.jellybolt.phantomarena` | 📋 Phase 4 | — |
 | 14 | Star Colonies | `com.jellybolt.starcolonies` | 📋 Phase 4 | — |
+| | **── Chart-Inspired Games ──** | | | |
+| 15 | ⚡ Bolt Blocks | `com.jellybolt.boltblocks` | 🔴 Phase 3C | — |
+| 16 | ⚡ Bolt Solitaire | `com.jellybolt.boltsolitaire` | 🔴 Phase 3C | — |
+| 17 | ⚡ Bolt Tiles | `com.jellybolt.bolttiles` | 📋 Phase 3C | — |
+| 18 | ⚡ Bolt Color | `com.jellybolt.boltcolor` | 📋 Phase 3C | — |
+| 19 | ⚡ Neon Dash | `com.jellybolt.neondash` | 📋 Phase 4C | — |
+| 20 | ⚡ Rhythm Bolt | `com.jellybolt.rhythmbolt` | 📋 Phase 4C | — |
+| 21 | ⚡ Territory Bolt | `com.jellybolt.territorybolt` | 📋 Phase 4C | — |
+| 22 | ⚡ Bolt Spinner | `com.jellybolt.boltspinner` | 📋 Phase 5 | — |
+| 23 | ⚡ Saboteur | `com.jellybolt.saboteur` | 📋 Phase 5 | — |
+| 24 | ⚡ Bolt World | `com.jellybolt.boltworld` | ⚪ Moonshot | — |
 | | **── Utility Apps ──** | | | |
-| 15 | ⚡ Bolt Calculator | `com.jellybolt.calculator` | 📋 Phase 3B | — |
-| 16 | ⚡ Bolt Timer | `com.jellybolt.timer` | 📋 Phase 3B | — |
-| 17 | ⚡ Bolt Convert | `com.jellybolt.converter` | 📋 Phase 3B | — |
-| 18 | ⚡ Bolt QR | `com.jellybolt.qrscanner` | 📋 Phase 4B | — |
-| 19 | ⚡ Bolt Notes | `com.jellybolt.notes` | 📋 Phase 4B | — |
-| 20 | ⚡ Bolt Compass | `com.jellybolt.compass` | 📋 Phase 4B | — |
-| 21 | ⚡ Bolt WiFi | `com.jellybolt.wifianalyzer` | 📋 Phase 5 | — |
-| 22 | ⚡ Bolt Weather | `com.jellybolt.weather` | 📋 Phase 5 | — |
-| 23 | ⚡ Bolt Files | `com.jellybolt.filemanager` | 📋 Phase 5 | — |
-| 24 | ⚡ Bolt Battery | `com.jellybolt.battery` | 📋 Phase 5 | — |
+| 25 | ⚡ Bolt Calculator | `com.jellybolt.calculator` | 📋 Phase 3B | — |
+| 26 | ⚡ Bolt Timer | `com.jellybolt.timer` | 📋 Phase 3B | — |
+| 27 | ⚡ Bolt Convert | `com.jellybolt.converter` | 📋 Phase 3B | — |
+| 28 | ⚡ Bolt QR | `com.jellybolt.qrscanner` | 📋 Phase 4B | — |
+| 29 | ⚡ Bolt Notes | `com.jellybolt.notes` | 📋 Phase 4B | — |
+| 30 | ⚡ Bolt Compass | `com.jellybolt.compass` | 📋 Phase 4B | — |
+| 31 | ⚡ Bolt WiFi | `com.jellybolt.wifianalyzer` | 📋 Phase 5 | — |
+| 32 | ⚡ Bolt Weather | `com.jellybolt.weather` | 📋 Phase 5 | — |
+| 33 | ⚡ Bolt Files | `com.jellybolt.filemanager` | 📋 Phase 5 | — |
+| 34 | ⚡ Bolt Battery | `com.jellybolt.battery` | 📋 Phase 5 | — |
 
 ## Appendix B: Why NOT Unity/Godot
 
