@@ -28,7 +28,7 @@ jobs:
           echo "${{ secrets.ANDROID_KEYSTORE_BASE64 }}" | base64 -d > jellybolt-release.keystore
 
       - name: Build TWA AAB
-        working-directory: android-app
+        working-directory: ${{ inputs.game == 'all' && 'android-app' || format('android-app/{0}', inputs.game) }}
         run: |
           chmod +x gradlew
           ./gradlew bundleRelease \
@@ -40,7 +40,7 @@ jobs:
       - name: Upload AAB artifact
         uses: actions/upload-artifact@v4
         with:
-          name: jellybolt-release-aab
-          path: android-app/app/build/outputs/bundle/release/*.aab
+          name: jellybolt-release-aab-${{ inputs.game }}
+          path: ${{ inputs.game == 'all' && 'android-app' || format('android-app/{0}', inputs.game) }}/app/build/outputs/bundle/release/*.aab
           retention-days: 30
 
