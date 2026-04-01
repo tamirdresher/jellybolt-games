@@ -53,18 +53,18 @@
 
 | # | Game | Genre | Suggested | Description | Play |
 |---|------|-------|-----------|-------------|------|
-| 12 | 🐍 **Neon Snake** | Arcade | $1.00 | Classic snake with rainbow neon aesthetics, swipe controls | [▶ Play](https://jellyboltgames.itch.io/neon-snake) |
-| 13 | 🚀 **Asteroid Dash** | Shooter | $1.00 | Space shooter with powerups, shields, levels | [▶ Play](https://jellyboltgames.itch.io/asteroid-dash) |
-| 14 | 🔷 **Hex Match** | Puzzle | $1.00 | Hexagonal tile-matching with chain combos, 30 moves | [▶ Play](https://jellyboltgames.itch.io/hex-match) |
-| 15 | 🎵 **Rhythm Tap** | Rhythm | $2.00 | 4-lane rhythm game, D-F-J-K keys, 60s rounds, increasing BPM | [▶ Play](https://jellyboltgames.itch.io/rhythm-tap) |
-| 16 | 🏏 **Bolt Breaker** | Arcade | Free | Breakout with 10 neon levels and 5 powerup types | [▶ Play](https://jellyboltgames.itch.io/bolt-breaker) |
-| 17 | 🚀 **Space Trader** | Simulation | Free | Buy-low-sell-high across 6 star systems in 30 turns | [▶ Play](https://jellyboltgames.itch.io/space-trader) |
+| 39 | 🐍 **Neon Snake** | Arcade | $1.00 | Classic snake with rainbow neon aesthetics, swipe controls | [▶ Play](https://jellyboltgames.itch.io/neon-snake) |
+| 40 | 🚀 **Asteroid Dash** | Shooter | $1.00 | Space shooter with powerups, shields, levels | [▶ Play](https://jellyboltgames.itch.io/asteroid-dash) |
+| 41 | 🔷 **Hex Match** | Puzzle | $1.00 | Hexagonal tile-matching with chain combos, 30 moves | [▶ Play](https://jellyboltgames.itch.io/hex-match) |
+| 42 | 🎵 **Rhythm Tap** | Rhythm | $2.00 | 4-lane rhythm game, D-F-J-K keys, 60s rounds, increasing BPM | [▶ Play](https://jellyboltgames.itch.io/rhythm-tap) |
+| 43 | 🏏 **Bolt Breaker** | Arcade | Free | Breakout with 10 neon levels and 5 powerup types | [▶ Play](https://jellyboltgames.itch.io/bolt-breaker) |
+| 44 | 🚀 **Space Trader** | Simulation | Free | Buy-low-sell-high across 6 star systems in 30 turns | [▶ Play](https://jellyboltgames.itch.io/space-trader) |
 
 ## Premium
 
 | # | Game | Genre | Price | Description | Play |
 |---|------|-------|-------|-------------|------|
-| 18 | ⚡ **Dungeon Bolt** | Roguelite RPG | **$2.99** | Flagship! 5-floor dungeon crawler with 11 enemy types, loot, shops, bosses, permadeath | [▶ Play](https://jellyboltgames.itch.io/dungeon-bolt) |
+| 45 | ⚡ **Dungeon Bolt** | Roguelite RPG | **$2.99** | Flagship! 5-floor dungeon crawler with 11 enemy types, loot, shops, bosses, permadeath | [▶ Play](https://jellyboltgames.itch.io/dungeon-bolt) |
 
 ---
 
