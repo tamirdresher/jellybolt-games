@@ -1,9 +1,11 @@
 # JellyBolt Games — itch.io Upload Manifest
 
 **Brand:** JellyBolt Games (jellyboltgames.itch.io)  
-**Total Pending:** 29 games  
+**Total Pending:** 0 games (ALL UPLOADED ✅)  
 **Generated:** 2025-01-17  
-**Purpose:** Browser-automated itch.io upload preparation
+**Updated:** 2025-07-03  
+**Purpose:** Browser-automated itch.io upload preparation  
+**Status:** ✅ ALL 29 games now live on itch.io (45 total on profile)
 
 ---
 
@@ -15,7 +17,10 @@
 
 ---
 
-## Pending Upload Games (29)
+## ✅ Uploaded Games (29/29 Complete)
+
+> All 29 games from this manifest have been uploaded to itch.io as of 2025-07-03.
+> Combined with 16 pre-existing games, JellyBolt Games now has **45 games** on itch.io.
 
 ### 1. Color Match 🎨
 - **File:** `games/color-match/index.html`
