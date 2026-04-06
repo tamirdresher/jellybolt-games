@@ -2,6 +2,7 @@ package com.jellybolt.games;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
@@ -9,11 +10,26 @@ import android.widget.LinearLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.FullScreenContentCallback;
+import com.google.android.gms.ads.LoadAdError;
+import com.google.android.gms.ads.MobileAds;
+import com.google.android.gms.ads.interstitial.InterstitialAd;
+import com.google.android.gms.ads.interstitial.InterstitialAdLoadCallback;
 
 public class MainActivity extends AppCompatActivity {
 
+    private static final String TAG = "MainActivity";
     private static final String BASE_URL = "file:///android_asset/games/";
+    private static final int INTERSTITIAL_FREQUENCY = 3;
+
+    private InterstitialAd interstitialAd;
+    private int launchCount = 0;
+    private String pendingGameId;
+    private String pendingGameName;
 
     private static final String[][] GAMES = {
         {"neon-snake", "Neon Snake", "\uD83D\uDC0D", "Classic Snake"},
@@ -71,6 +87,12 @@ public class MainActivity extends AppCompatActivity {
             WindowManager.LayoutParams.FLAG_FULLSCREEN,
             WindowManager.LayoutParams.FLAG_FULLSCREEN
         );
+
+        // Initialize Mobile Ads SDK
+        MobileAds.initialize(this, initializationStatus -> {
+            Log.d(TAG, "AdMob initialized");
+            loadInterstitialAd();
+        });
 
         ScrollView scrollView = new ScrollView(this);
         scrollView.setBackgroundColor(0xFF0A0A1A);
@@ -138,17 +160,68 @@ public class MainActivity extends AppCompatActivity {
             card.addView(textLayout);
 
             final String gameId = game[0];
-            card.setOnClickListener(v -> {
-                Intent intent = new Intent(MainActivity.this, GameActivity.class);
-                intent.putExtra("game_url", BASE_URL + gameId + "/index.html");
-                intent.putExtra("game_name", game[1]);
-                startActivity(intent);
-            });
+            final String gameName = game[1];
+            card.setOnClickListener(v -> launchGame(gameId, gameName));
 
             layout.addView(card);
         }
 
         scrollView.addView(layout);
         setContentView(scrollView);
+    }
+
+    private void launchGame(String gameId, String gameName) {
+        launchCount++;
+        if (launchCount % INTERSTITIAL_FREQUENCY == 0 && interstitialAd != null) {
+            pendingGameId = gameId;
+            pendingGameName = gameName;
+            interstitialAd.show(this);
+        } else {
+            startGameActivity(gameId, gameName);
+        }
+    }
+
+    private void startGameActivity(String gameId, String gameName) {
+        Intent intent = new Intent(MainActivity.this, GameActivity.class);
+        intent.putExtra("game_url", BASE_URL + gameId + "/index.html");
+        intent.putExtra("game_name", gameName);
+        startActivity(intent);
+    }
+
+    private void loadInterstitialAd() {
+        AdRequest adRequest = new AdRequest.Builder().build();
+        InterstitialAd.load(this, getString(R.string.interstitial_ad_unit_id),
+            adRequest, new InterstitialAdLoadCallback() {
+                @Override
+                public void onAdLoaded(@NonNull InterstitialAd ad) {
+                    interstitialAd = ad;
+                    interstitialAd.setFullScreenContentCallback(new FullScreenContentCallback() {
+                        @Override
+                        public void onAdDismissedFullScreenContent() {
+                            interstitialAd = null;
+                            loadInterstitialAd();
+                            if (pendingGameId != null) {
+                                startGameActivity(pendingGameId, pendingGameName);
+                                pendingGameId = null;
+                                pendingGameName = null;
+                            }
+                        }
+                    });
+                }
+
+                @Override
+                public void onAdFailedToLoad(@NonNull LoadAdError loadAdError) {
+                    Log.d(TAG, "Interstitial failed: " + loadAdError.getMessage());
+                    interstitialAd = null;
+                }
+            });
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if (interstitialAd == null) {
+            loadInterstitialAd();
+        }
     }
 }
